@@ -1,0 +1,129 @@
+1) 10 proizvoda s najviše recenzija:
+
+query:
+db.products
+    .aggregate([
+        { $unwind: "$value.reviews" },
+        { $group: { 
+            _id: "$_id",
+            numberOfReviews: { $sum: 1 } } 
+        },
+        { $sort: { numberOfReviews: -1, title: 1 } },
+        { $limit: 10 },
+    ])
+    .toArray();
+
+result:
+[
+    {
+        "_id" : "B000EOPQ7E",
+        "numberOfReviews" : 520.0
+    },
+    {
+        "_id" : "B000MUXJCO",
+        "numberOfReviews" : 431.0
+    },
+    {
+        "_id" : "B00063678K",
+        "numberOfReviews" : 400.0
+    },
+    {
+        "_id" : "B0009WFFS6",
+        "numberOfReviews" : 371.0
+    },
+    {
+        "_id" : "B0006NDF8A",
+        "numberOfReviews" : 365.0
+    },
+    {
+        "_id" : "B0002CZSJY",
+        "numberOfReviews" : 353.0
+    },
+    {
+        "_id" : "B0002F58TG",
+        "numberOfReviews" : 326.0
+    },
+    {
+        "_id" : "B0002CZW0Y",
+        "numberOfReviews" : 303.0
+    },
+    {
+        "_id" : "B0002GLCRC",
+        "numberOfReviews" : 303.0
+    },
+    {
+        "_id" : "B000AAGM0M",
+        "numberOfReviews" : 296.0
+    }
+]
+
+duration: 168ms
+
+
+2) 10 proizvoda s najmanje recenzija:
+
+query:
+db.products
+    .aggregate([
+        { $unwind: "$value.reviews" },
+        { $group: { 
+            _id: "$_id",
+            numberOfReviews: { $sum: 1 } } 
+        },
+        { $sort: { numberOfReviews: 1, title: 1 } },
+        { $limit: 10 },
+    ])
+    .toArray();
+
+result:
+[
+    {
+        "_id" : "B0002GMJEC",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B0006FUJ9G",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B0002E1G8E",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B0002D0HX0",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B000F7R9R0",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B000BTBYYQ",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B0002GOCRY",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B000BO1K04",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B0009VCP2Q",
+        "numberOfReviews" : 1.0
+    },
+    {
+        "_id" : "B0009K5FSI",
+        "numberOfReviews" : 1.0
+    }
+]
+
+duration: 125ms
+
+U ovim upitima koristim:
+	- $unwind kako bismo raspakirali recenzije
+	- $group za grupiranje recenzija po proizvodu
+	- $sum za zbroj ukupnog broja recenzija
+	- $sort za sortiranje prema broju recenzija (-1 za silazno, 1 za uzlazno)
+	- $limit za ograničavanje rezultata na prvih 10 proizvoda

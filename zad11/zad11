@@ -1,0 +1,33 @@
+query:
+db.products.createIndex({ 'value.reviewStats.reviewsCount': 1 })
+db.products.createIndex({ 'value.reviewStats.avgReviewScore': 1 })
+db.products.createIndex({ 'value.price': 1 })
+db.products.createIndex({ 'value.reviews.text': 1 })
+
+
+const startDate = new Date()
+
+const n = db.products
+    .find(
+        {
+            'value.reviewStats.reviewsCount': { $gte: 200 },
+            'value.reviewStats.avgReviewScore': { $gte: 4.5 },
+            'value.price': { $lt: 20 },
+            'value.reviews.text': { $regex: /wonderful/i }
+        }
+    )
+    .count()
+
+const endDate = new Date()
+
+print("Duration of query: " + (endDate - startDate) + "ms")
+print("Number of products satisfying query: " + n)
+
+
+result:
+Duration of query: 23ms
+Number of products satisfying query: 9
+
+
+Napravio sam indekse kako bi pretraga bila brža. Rezultat je da postoji 9 proizvoda koji zadovoljavaju upit.
+U ovom upitu koristio sam prethodno kreiranu kolekciju 'products' (6. zad) u kojoj imam informacije o proizvodima, recenzijama te statistici recenzija za taj proizvod (dodano u 8. zad).

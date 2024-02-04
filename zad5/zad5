@@ -1,0 +1,29 @@
+query:
+db.reviews.mapReduce(
+    function() {
+        if (this.product.price) {
+            emit(this.product.productId, this.product.price)
+        }
+    },
+    function(key, values) {
+        const multiplePrices = [...new Set(values)]
+        if (multiplePrices.length >= 2) {
+            return multiplePrices    
+        }
+    },
+    {
+        out: 'multiplePrices'
+    }
+);
+
+db.multiplePrices.find({ value: { $ne: null }});
+
+result:
+0
+
+duration: 6ms
+
+U ovom upitu koristim mapReduce funkciju. 
+Prvo mapiram proizvod i njegovu cijenu, a zatim u reduce funkciji provjeravam ima li proizvod više od jedne cijene. Rezultat spremam u 'multiplePrices' kolekciju.
+Na kraju filtriram zapise u 'multiplePrices' kolekciji koji 'value' nemaju null (ako nemaju null znači da su prošli reduce funkciju tj. imaju više različitih cijena).
+Vidimo kako takvih zapisa nema pa možemo zaključiti da nema proizvoda koji ima više različitih cijena.

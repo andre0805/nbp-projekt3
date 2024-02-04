@@ -1,0 +1,26 @@
+1. kolekcija se zove 'reviews'
+2. primjer zapisa:
+	db.reviews.findOne():
+	{
+	    "_id" : ObjectId("65a911db1e8617206c1ada0d"),
+	    "product" : {
+	        "productId" : "B0009F5ZXS",
+	        "title" : "Dimarzio Virtual Hot PAF Bridge - Black Finish DP223 Vintage Output Humbucker Pickup",
+	        "price" : NumberInt(69)
+	    },
+	    "review" : {
+	        "userId" : "A3915SRVUGEXY5",
+	        "profileName" : "plinker",
+	        "helpfulness" : "2/2",
+	        "score" : NumberInt(3),
+	        "time" : ISODate("2012-05-12T00:00:00.000+0000"),
+	        "summary" : "Wrong pickup description",
+	        "text" : "The name and description of this Pickup, Virtual Hot PAF, does not match the model number you list. The model number you have listed is for the 36th Anniversary pickup that replaced the Virtual Hot when it was discontinued. They are not even close to being the same pickup."
+	    }
+	}
+
+3. u bazi se nalazi 85405 zapisa (db.reviews.count())
+4. prosječna veličina zapisa je 798.0 kB (db.reviews.stats())
+5. veličina kolekcije je (40.15 MB) (db.reviews.totalSize())
+6. veličina koju kolekcija zauzima na disku je 39.29 MB (db.reviews.storageSize())
+7. nisu iste jer je totalSize jednak zbroju storageSize i totalIndexSize (totalIndexSize je 0.86 MB (db.reviews.totalIndexSize()) => 39.29 + 0.86 = 40.15 MB = totalSize)

@@ -1,0 +1,9 @@
+query: 
+db.reviews.find({ "product.price": NaN }).count()
+
+result:
+19152
+
+duration: ne piše
+
+U ovom upitu filtriram zapiise koji imaju ocjenu Nan te zatim prebrojavam ukupan broj zapisa koristeći .count()

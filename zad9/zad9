@@ -1,0 +1,155 @@
+1) Bez indeksa (slika 1)
+
+query:
+const userWithMaxReviews = db.reviews
+    .aggregate([
+        { $match: { 'review.userId': { $ne: 'unknown' } } },
+        { $unwind: '$review' },
+        { $group: { _id: '$review.userId', numberOfReviews: { $sum: 1 } } },
+        { $sort: { numberOfReviews: -1 }},
+        { $limit: 1 }
+    ])
+    .toArray()[0]
+
+const userWithMinReviews = db.reviews
+    .aggregate([
+        { $match: { 'review.userId': { $ne: 'unknown' } } },
+        { $unwind: '$review' },
+        { $group: { _id: '$review.userId', numberOfReviews: { $sum: 1 } } },
+        { $sort: { numberOfReviews: 1 }},
+        { $limit: 1 }
+    ])
+    .toArray()[0]
+        
+
+const startDate = new Date()
+
+const reviewsOfUserWithMaxReviews = db.reviews.find({ 'review.userId': userWithMaxReviews._id }).toArray()
+const reviewsOfUserWithMinReviews = db.reviews.find({ 'review.userId': userWithMinReviews._id }).toArray()
+
+const endDate = new Date()
+
+print("Duration of queries without using indices: " + (endDate - startDate) + "ms")
+
+result:
+Duration of queries without using indices: 59ms
+
+
+2) S indeksom (slika 2)
+query:
+db.reviews.createIndex({ 'review.userId': 1 })
+
+const userWithMaxReviews = db.reviews
+    .aggregate([
+        { $match: { 'review.userId': { $ne: 'unknown' } } },
+        { $unwind: '$review' },
+        { $group: { _id: '$review.userId', numberOfReviews: { $sum: 1 } } },
+        { $sort: { numberOfReviews: -1 }},
+        { $limit: 1 }
+    ])
+    .toArray()[0]
+
+const userWithMinReviews = db.reviews
+    .aggregate([
+        { $match: { 'review.userId': { $ne: 'unknown' } } },
+        { $unwind: '$review' },
+        { $group: { _id: '$review.userId', numberOfReviews: { $sum: 1 } } },
+        { $sort: { numberOfReviews: 1 }},
+        { $limit: 1 }
+    ])
+    .toArray()[0]
+        
+
+const startDate = new Date()
+
+const reviewsOfUserWithMaxReviews = db.reviews.find({ 'review.userId': userWithMaxReviews._id }).toArray()
+const reviewsOfUserWithMinReviews = db.reviews.find({ 'review.userId': userWithMinReviews._id }).toArray()
+
+const endDate = new Date()
+
+print("Duration of queries with indices: " + (endDate - startDate) + "ms")
+	
+result:
+Duration of queries with indices: 21ms
+
+
+3) Explain dio (slika 3)
+query:
+const userWithMaxReviews = db.reviews
+    .aggregate([
+        { $match: { 'review.userId': { $ne: 'unknown' } } },
+        { $unwind: '$review' },
+        { $group: { _id: '$review.userId', numberOfReviews: { $sum: 1 } } },
+        { $sort: { numberOfReviews: -1 }},
+        { $limit: 1 }
+    ])
+    .toArray()[0]
+
+const userWithMinReviews = db.reviews
+    .aggregate([
+        { $match: { 'review.userId': { $ne: 'unknown' } } },
+        { $unwind: '$review' },
+        { $group: { _id: '$review.userId', numberOfReviews: { $sum: 1 } } },
+        { $sort: { numberOfReviews: 1 }},
+        { $limit: 1 }
+    ])
+    .toArray()[0]
+        
+
+const explainQueryJson = db.reviews.find({ 'review.userId': userWithMaxReviews._id }).explain()
+printjson(explainQueryJson.queryPlanner)
+
+result:
+{
+    "namespace" : "proj3.reviews",
+    "indexFilterSet" : false,
+    "parsedQuery" : {
+        "review.userId" : {
+            "$eq" : "A2NYK9KWFMJV4Y"
+        }
+    },
+    "queryHash" : "4235AE51",
+    "planCacheKey" : "5C1C6645",
+    "maxIndexedOrSolutionsReached" : false,
+    "maxIndexedAndSolutionsReached" : false,
+    "maxScansToExplodeReached" : false,
+    "winningPlan" : {
+        "queryPlan" : {
+            "stage" : "FETCH",
+            "planNodeId" : 2.0,
+            "inputStage" : {
+                "stage" : "IXSCAN",
+                "planNodeId" : 1.0,
+                "keyPattern" : {
+                    "review.userId" : 1.0
+                },
+                "indexName" : "review.userId_1",
+                "isMultiKey" : false,
+                "multiKeyPaths" : {
+                    "review.userId" : [
+
+                    ]
+                },
+                "isUnique" : false,
+                "isSparse" : false,
+                "isPartial" : false,
+                "indexVersion" : 2.0,
+                "direction" : "forward",
+                "indexBounds" : {
+                    "review.userId" : [
+                        "[\"A2NYK9KWFMJV4Y\", \"A2NYK9KWFMJV4Y\"]"
+                    ]
+                }
+            }
+        },
+        "slotBasedPlan" : {
+            "slots" : "$$RESULT=s11 env: { s2 = Nothing (SEARCH_META), s3 = 1705592778546 (NOW), s1 = TimeZoneDatabase(America/Nipigon...Asia/Seoul) (timeZoneDB), s5 = KS(3C41324E594B394B57464D4A563459000104), s6 = KS(3C41324E594B394B57464D4A56345900FE04), s10 = {\"review.userId\" : 1} }",
+            "stages" : "[2] nlj inner [] [s4, s7, s8, s9, s10] \n    left \n        [1] cfilter {(exists(s5) && exists(s6))} \n        [1] ixseek s5 s6 s9 s4 s7 s8 [] @\"dd47135a-18f9-4313-be99-6ea02d910957\" @\"review.userId_1\" true \n    right \n        [2] limit 1 \n        [2] seek s4 s11 s12 s7 s8 s9 s10 [] @\"dd47135a-18f9-4313-be99-6ea02d910957\" true false \n"
+        }
+    },
+    "rejectedPlans" : [
+
+    ]
+}
+
+Zaključujem da je korištenjem indeksa upit brži za 38ms, što je ubrzanje od 64%. Analizom 'explain' naredbe možemo vidjeti da je korišten index pod nazivom "review.userId_1".

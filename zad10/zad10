@@ -1,0 +1,31 @@
+1) Prije kreiranja indeksa, korištenjem regex  (slika 1)
+query:
+const startDate = new Date()
+
+db.reviews.find({ 'review.text': { $regex: /mindful/i } })
+
+const endDate = new Date()
+
+print("Duration of query: " + (endDate - startDate) + "ms")
+
+result:
+Duration of query: 181ms
+
+
+2) Nakon kreiranja indeksa (slika 2)
+query:
+db.reviews.createIndex({ 'review.text': 'text' });
+
+const startDate = new Date()
+
+db.reviews.find({ $text: { $search: 'mindful' } })
+
+const endDate = new Date()
+
+print("Duration of query: " + (endDate - startDate) + "ms")
+
+result:
+Duration of query: 161ms
+
+
+Zaključujem da je indeks brži za 20ms odnsono oko 11%.

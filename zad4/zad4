@@ -1,0 +1,106 @@
+query:
+db.reviews.find(
+    { "review.score": 1 },
+    { "_id": 0, "product.price": 1, "product.title": 1, "review.time": 1 },
+)
+.sort({ "review.time": 1, _id: 1 })
+.skip(db.reviews.find({ "review.score": 1 }).count() - 20)
+.limit(10)
+
+result:
+{
+    "product" : {
+        "title" : "Azden WMS-PRO Wireless Microphone System",
+        "price" : 154.99
+    },
+    "review" : {
+        "time" : ISODate("2013-02-21T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Miniature Cello 9 inches \"Large\"",
+        "price" : NaN
+    },
+    "review" : {
+        "time" : ISODate("2013-02-21T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Seymour Duncan SA1 Acoustic Tube Acoustic Pickup",
+        "price" : 69.95
+    },
+    "review" : {
+        "time" : ISODate("2013-02-21T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Hohner Kazoo",
+        "price" : 1.29
+    },
+    "review" : {
+        "time" : ISODate("2013-02-21T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Cecilio 3/4 CVN-200 Rosewood Fitted Solid Wood Violin",
+        "price" : 100.97
+    },
+    "review" : {
+        "time" : ISODate("2013-02-22T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Jasmine by Takamine JS341 Acoustic Guitar Pack",
+        "price" : 122.69
+    },
+    "review" : {
+        "time" : ISODate("2013-02-22T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Danelectro D-3 Fab Metal Effects Pedal",
+        "price" : 14.99
+    },
+    "review" : {
+        "time" : ISODate("2013-02-22T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Evans Clear 300 Snare Side Drum Head, 13 Inch",
+        "price" : 12.49
+    },
+    "review" : {
+        "time" : ISODate("2013-02-23T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "On Stage SM7122B Folding Music Stand, Black",
+        "price" : 11.95
+    },
+    "review" : {
+        "time" : ISODate("2013-02-23T00:00:00.000+0000")
+    }
+}
+{
+    "product" : {
+        "title" : "Nady MPF-6 6-Inch Clamp On Microphone Pop Filter",
+        "price" : 17.31
+    },
+    "review" : {
+        "time" : ISODate("2013-02-23T00:00:00.000+0000")
+    }
+}
+
+duration: 45ms
+
+U ovom upitu prvo filtriram zapise kojima je ocjena recenzije 1. 
+Potom radim projekciju polja product.price, product.title i review.time te sortiram ulazno po vremenu recenziju i _id.
+Na kraju preskačem prvih N-20 zapisa (kako bih došao do predzadnjih 10) te limitiram ispis na 10 zapisa.

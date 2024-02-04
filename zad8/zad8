@@ -1,0 +1,2720 @@
+query:
+db.products
+    .find()
+    .forEach(p => {
+        const reviews = p.value.reviews
+        
+        var reviewStats = {
+            avgReviewScore: 0,
+            reviewsCount: reviews.length,
+            reviewScoreDistrib: {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0
+            }   
+        }
+        
+        const sum = reviews.reduce((acc, r) => acc + r.score, 0)
+        const N = reviewStats.reviewsCount
+        reviewStats.avgReviewScore = Math.max(0, sum / N)
+        
+        reviews.forEach(r => {
+            reviewStats.reviewScoreDistrib[r.score] += 1
+        })
+        
+        
+        db.products.update(
+            { _id: p._id },
+            { $set: { 'value.reviewStats': reviewStats } }
+        )
+    });
+    
+db.products.find();
+
+result:
+{
+    "_id" : "B000F9JP8E",
+    "value" : {
+        "title" : "Juilliard Music Adventure (PC / Mac)",
+        "price" : 82.99,
+        "reviews" : [
+            {
+                "userId" : "A20S9LD23BYI9P",
+                "profileName" : "clariniano",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-01-16T00:00:00.000+0000"),
+                "summary" : "FUN--for both adults and kids!!!",
+                "text" : "I love this program! Music students can learn about various elements of music, even advanced ones, in a fun way, such as learning about counterpoint and using their ears to figure out the correct melody and rhythm. My husband loved it too, and so did our students."
+            },
+            {
+                "userId" : "A12E0Y0J6584RT",
+                "profileName" : "Seanna",
+                "helpfulness" : "9/10",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-07-27T00:00:00.000+0000"),
+                "summary" : "Juilliard Music School",
+                "text" : "Musical traditions of The Juilliard School are introduced in the game, where a mischievous gnome named Gnoise has stolen all the music from the Queen's castle. Exploring the castle, you have to solve the musical puzzles, free the Queen, and restore music to her realm.Also you can compose your own music with Rhythm and Melody Tools."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000A6AEVO",
+    "value" : {
+        "title" : "SKB PS45 Deluxe Pedalboard with Hard Case",
+        "price" : 222.09,
+        "reviews" : [
+            {
+                "userId" : "A38MD29JTH7N2N",
+                "profileName" : "tonygsherman",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-06-13T00:00:00.000+0000"),
+                "summary" : "Bad ass pedalboard",
+                "text" : "I love this thing stop's the buzz in the amp give's all around power to all the pedal's its the best thing ever"
+            },
+            {
+                "userId" : "A3RXB92MPSD36J",
+                "profileName" : "Jeffrey D. Bolin",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-06-18T00:00:00.000+0000"),
+                "summary" : "Great pedalboard!",
+                "text" : "Bought this pedalboard for a couple reasons...1) Having the built-in power conditioner eliminates the unwanted noise you get from 'power strips'.2) Being able to power most of my pedals with the provided power cables eliminates the dreaded wall warts!3) Having a large velcro surface was important to me! I don't use a ton of pedals, but I use enough that it won't fit on a lot of the smaller boards.4) I know that my pedals are protected from damage with the hard shell case!Some improvements to think about!This board is almost identical to the Furman SPB-8C Stereo Pedalboard (which is no longer available new). What I liked about the Furman was that it had a pull up handle and wheels.I wonder why SKB didn't include this in the PS45?Overall, I love my PS45 pedalboard! I hope to get many years of use out of it!!!"
+            },
+            {
+                "userId" : "A3G36JFNIU8OV3",
+                "profileName" : "John H. Kim \"genesys one\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(4),
+                "time" : ISODate("2007-03-08T00:00:00.000+0000"),
+                "summary" : "wheels",
+                "text" : "it's considerably a big size case and it gets quite haevy and bulky when fully loaded. this would be a better product if factory can come out with wheels and handle like one of those backpack.other than that, it's a good stuff."
+            },
+            {
+                "userId" : "A3LDEMYEN1YE9C",
+                "profileName" : "Jacob Heyting \"Jacob\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-03-26T00:00:00.000+0000"),
+                "summary" : "LOVE IT",
+                "text" : "Terrific, velcro really keeps pedals stuck well to the board. This product came with something I have never seen before an unconditional gaurantee that if it breaks, SKB will replace it. That's right drop it down some stairs, throw it against the wall - need a new on, call SKB."
+            },
+            {
+                "userId" : "A2ZYYF94N1FSKY",
+                "profileName" : "Stacey P. Zbiegien",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2009-05-25T00:00:00.000+0000"),
+                "summary" : "SKB DELUXE PEDALBOARD",
+                "text" : "If I would thought of this is the 80's moving from a wooden pedal board with a 6 space surge suppressor to this I would be a millionaire. Instead I moved to a rack system. 20 years later I am playing with the pedals again and the rack is in the closet. THIS IS A GREAT UNIT! My only complaint so far is I have a MXR Phase pedal that the Velcro came detached from and I have the new Digitech Harmony pedal that I have really had to Velcro down, but it still comes detached. I can understand the Digitech coming detached but not the MXR pedal. I have several Boss pedals along with a volume and a wha pedal and they all stay intact."
+            },
+            {
+                "userId" : "A3PXWEY43M6YFR",
+                "profileName" : "J. C. Young \"marketing guy\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(3),
+                "time" : ISODate("2011-10-03T00:00:00.000+0000"),
+                "summary" : "Off to a Rocky start",
+                "text" : "Overall I really like the SKB pedal board. The construction is as described and I take them at their word re: the lifetime warranty. I was however really disappointed when I plugged it in and had no power. Luckily I have some technical skills and upon opening the powerbar discovered that the hot wire had come loose from its connector. With a crimping tool I re-connected the loose wire and it works fine. This was not something the vendor would know about a product in a sealed package, but it was not picked up on by the manufacturer. Makes you wonder if quality assurance was doing their job. Most folks would not have the courage to open something and would most likely have sent it back. A small fix but it got us off to a rocky start."
+            },
+            {
+                "userId" : "A32JHQGZ1J2QW2",
+                "profileName" : "alexbrubakerguitar",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-02-16T00:00:00.000+0000"),
+                "summary" : "Almost has everything",
+                "text" : "It's a big board. There's no getting around that. However, it's not meant for people with 3 or 4 pedals. It's meant for people who either want a little bit of everything or do crazy things like have multiple loopers and delays set up. If you don't have enough to almost fill the board, I wouldn't recommend it, as there are options that aren't as heavy or bulky.As far as sound goes, it sounds great. I don't get noise from the power supply. Unless there's a noisy outlet or ambient interference, it' silent.And it's durable. I would still take care to not drop it, but if something is sitting on it or knocks into it, your pedals will be fine.The negatives? Sure, you can count it's weight and bulk as \"negative,\" but I won't - those things come with big rigs. What I don't like are 2 things:First, you can't close the lid with any wall warts plugged in. Second, it doesn't have a power switch.However, some interesting things to note:You stand pedals on end (if you're running out of room) thanks to lots of depth to the board. I've got a BBE Sonic Stomp that's upright, since it's always on. This extra headroom also allows you to store cables and miscellaneous gear on top of your pedals. And this is also enough room to stack pedals. I've got a tube screamer that I've got stacked on top of a pre-amp to make more room and it works great.Really, this ought to at least have a power switch. That bumped this to 4 stars. Perfection is just around the corner."
+            },
+            {
+                "userId" : "A1CKNSDUY45A7I",
+                "profileName" : "Aaron C. Ettlin \"food and music!\"",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-04-18T00:00:00.000+0000"),
+                "summary" : "In a word: convenience!",
+                "text" : "This pedalboard is great! Super convenient, powers almost anything, velcro is strong, a good size for lots of pedals, case snaps are snug, skb tough shell, pretty secure feeling. It is a little heavy and bulky, but it's a lot nicer than throwing all your pedals and adaptes in a bag and setting them up and breaking them down every show/practice. Also, if you use batteries, this will save you money! After my adapters broke (cheap boss cord), I used batteries for months. This will eliminate that, and in a way pay for itself! If you're looking at this, you probably need one, and there's nothing else in this price range that's nearly as good."
+            },
+            {
+                "userId" : "AY69Y2R301EAP",
+                "profileName" : "Steven Forss",
+                "helpfulness" : "5/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-05-24T00:00:00.000+0000"),
+                "summary" : "Awesome Pedal Board",
+                "text" : "I am a full-time, professional musician. I play over 250 gigs per year. I am very hard on my gear and this pedal board is tough. It holds and powers my pedals perfectly. I love the 3 power outlets, I have 2 pedals that I have to plug in and the 3rd outlet is for my stage fan. There is plenty of room inside the case when it is closed for all my cables. I keep 2 mic cables, 2 guitar cables, and the power cord all wrapped up in there. The power cable is great too. It is nice and long. I almost never have to use an extension cord. I ran all the pedals together with George L. cables. This keeps everything looking neat with no \"spaghetti\" mess.George L's Effects Kit (Black Cable, Nickle Right Angle Plugs)I highly recommend this board to anyone who is serious about their pedals. In my opinion there is no better way to transport and power your precious effect pedals. You could spend lots of money on a custom board, and more money on a power supply, or you could get this."
+            },
+            {
+                "userId" : "A31MSASPJWX6Q7",
+                "profileName" : "dByron",
+                "helpfulness" : "6/6",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-05-18T00:00:00.000+0000"),
+                "summary" : "The best!",
+                "text" : "In my opinion SKB's PS45 is the best case out there before you start getting into custom solutions. ESPECIALLY for the Amazon price (20 cheaper than the online music retailers and free shipping which is uncommon for this item too)! Furman power strip is great too offering both protection and as many plugins as you'll need for the pedal space provided. The only reason I would upgrade from this pedal board would be if I run out of pedal space. Even then not all is lost, as the furman strip detaches from the skb case. So I'll be able to use the furman strip in an ATA case if necessary."
+            },
+            {
+                "userId" : "A3748PLWFRDRQ",
+                "profileName" : "Tom",
+                "helpfulness" : "1/3",
+                "score" : NumberInt(1),
+                "time" : ISODate("2011-03-23T00:00:00.000+0000"),
+                "summary" : "Huge, poorly designed and underpowered",
+                "text" : "I got this item, and was surprised at how big and heavy it was. It is very large, and doesn't seem to accommodate very many pedals. It is also considerably heavy to carry when *empty*. Once I tried to get it setup, I was angry to find out that there isn't any clearance to leave standard sized wall warts plugged into the unit, and close the case. On top of all this, you'd think that the power supply would be adequate right? Nope. With only 4 9V pedals plugged in, I found my EH Cathedral unit to start dropping out from being underpowered. I switched to a pedaltrain board and a Godlyke power supply, and I am 100% happier. Too bad I wasted money and time on this piece of junk."
+            },
+            {
+                "userId" : "A2W9016R072AM8",
+                "profileName" : "Melissa J. Hanchey",
+                "helpfulness" : "0/1",
+                "score" : NumberInt(1),
+                "time" : ISODate("2012-04-10T00:00:00.000+0000"),
+                "summary" : "dud right out of the box",
+                "text" : "No power right out of the box. Same problem another reviewer had. Unlike him, I'm not messing around opening the thing up. They obviously have quality issues. Going back to my Voodoo Labs Pedal power. Otherwise it accommodates a bunch of pedals and seems very sturdy."
+            },
+            {
+                "userId" : "A1T2ZFI8Z86DLW",
+                "profileName" : "D. Parsley \"PongJiPong\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-07-04T00:00:00.000+0000"),
+                "summary" : "One for the Road",
+                "text" : "I was looking for a means of transport and quick set up for my stompboxes, and the SKB PS45 Pedalboard definitely meets my needs.The construction is solid and the hardshell case keeps my pedals safe while being dragged from pillar to post.The power supply does away with the wall-wart adapters for most of my effects, and the patchbay helps me save on setup time.I recommend it highly."
+            },
+            {
+                "userId" : "A11VO46101MMK1",
+                "profileName" : "Robert Johnston",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-02-01T00:00:00.000+0000"),
+                "summary" : "Got it today.",
+                "text" : "There wasn't any trouble getting the pedal board sent to me. I had to sign for it.. as with any item on the pricey side. It's about 26lbs WITHOUT PEDALS so if you're looking to go lightweight, this isn't for you."
+            },
+            {
+                "userId" : "A219HDY7BIUKUR",
+                "profileName" : "S. Parker \"Phoenix Amaranth\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-11-02T00:00:00.000+0000"),
+                "summary" : "Great pedal board",
+                "text" : "Upgraded to this pedal board and I couldn't be happier that I did. Powers all my pedals and has plenty of room for them as well. Love the sturdy case and strong, stable feel of the board when stepping on pedals."
+            },
+            {
+                "userId" : "A24NT19OU1YNVV",
+                "profileName" : "Chris",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-11-28T00:00:00.000+0000"),
+                "summary" : "It is as described",
+                "text" : "I was looking at two pedalboards and chose this one for it's features (power outlet) and pricing.The components are literally crammed together in there, so before ordering, make sure you measure the components you want to fit inside and leave some space for the connecting cables. You may need to purchase custom length cables or make your own. I found you will need lengths between 6&#34; to 18&#34;"
+            },
+            {
+                "userId" : "A1JN3UIUZAHF7V",
+                "profileName" : "cvmaparadog",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-13T00:00:00.000+0000"),
+                "summary" : "Great product!",
+                "text" : "Ample room, power supply works perfectly and built like a tank. If you use a lot of pedals, this is the perfect pedal board for you. It's worth the price. Velcro works great...although you probably need a little more than what comes with it because there's so much space on the board for pedals."
+            },
+            {
+                "userId" : "AI7DKVU7T8EUL",
+                "profileName" : "Eddie Starline from RECON",
+                "helpfulness" : "2/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-07-03T00:00:00.000+0000"),
+                "summary" : "All that........AND a bag a chips !!!!",
+                "text" : "This pedal board is what compact disks are to cassette tapes. Thisboard has everything all rolled into one. For those of you that haveever fumbled with all your effects on the road, you know somethinglike this was bound to happen. Enough space for multiple effects, powerto all of your boxs (built in), velcro already on the board with freetape for your pedals, a built in patch bay for you technical users,AND a hard case cover with locking latches !!! When I saw a guy at churchwith one of these babys, I HAD to get one. And now that I have, myguitar playing days have changed forever. Thanks SKB !!!!!"
+            },
+            {
+                "userId" : "A296JV4AXU6KA3",
+                "profileName" : "Igloo",
+                "helpfulness" : "2/3",
+                "score" : NumberInt(3),
+                "time" : ISODate("2011-12-22T00:00:00.000+0000"),
+                "summary" : "It's HUGE",
+                "text" : "I do not own this pedal board, but the guitarist in my band does. It has a great hardshell cover but it takes up a massive amount of floor space, which is inconvenient for us as our practice space is the typical size (small) and there are five of us. The way the power cord is designed, people are constantly stepping on it and unplugging it while attempting to cross the room to get to the beer fridge. It also takes up a massive amount of space on stage, as well, about the same amount of room as another person would take.This thing will hold a ton of pedals, and maybe one day he'll have enough to fill it, and maybe one day we'll have a set where it's necessary to have all of his pedals with him at once.So just a heads up, this thing is big and heavy, as big and heavy as having another instrument. If you have a LOT of pedals that you use all the time, however, and have a lot of room in your practice space and on stage, this is a great pedal board."
+            },
+            {
+                "userId" : "A1LGKN8I89PZA8",
+                "profileName" : "C. Gray",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-07-26T00:00:00.000+0000"),
+                "summary" : "An excelent investment.",
+                "text" : "This is the greatest thing I've ever bought as a musician. I was pretty much stuck on a plateu before I bought this pedal and after I did it allowed me to further my self very easily musically. It's super sturdy and completely compatible with all my pedals. I highly recomend this pedal board as a cheap and efficient way to further yourself in whatever style of music you pursue."
+            },
+            {
+                "userId" : "A1BFQL1LZME5J2",
+                "profileName" : "Audrey M. Montalto",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-06-07T00:00:00.000+0000"),
+                "summary" : "Perfect! Just as described and shipped very promptly!!",
+                "text" : "Very pleased with the product overall! Good price and prompt shipping! Thank you!!!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.285714285714286,
+            "reviewsCount" : NumberInt(21),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(2),
+                "2" : NumberInt(0),
+                "3" : NumberInt(2),
+                "4" : NumberInt(3),
+                "5" : NumberInt(14)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002F7434",
+    "value" : {
+        "title" : "Vic Firth American Classic 3A",
+        "price" : 7.69,
+        "reviews" : [
+            {
+                "userId" : "A18MOJLN9TVVLU",
+                "profileName" : "AgDrumma07",
+                "helpfulness" : "0/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-08-20T00:00:00.000+0000"),
+                "summary" : "Great product and seller",
+                "text" : "BEST price by far online and shipping was extremely fast. I will definitely be buying from this seller in the future."
+            },
+            {
+                "userId" : "A1C27GA4WIOWCP",
+                "profileName" : "Straightdoinit",
+                "helpfulness" : "1/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-05-07T00:00:00.000+0000"),
+                "summary" : "it was mad tight",
+                "text" : "like for real doggy, when i str8 pulled dis ish outta da package and went HAM on my kit, like I knew i made da right choice. Like u feel me playa? trust me yall boys need to holla at this #swag #getatme #mr252 #carolinaSTANDUP #guatalmanprisonescapee"
+            },
+            {
+                "userId" : "AM7ER3SG7HZ72",
+                "profileName" : "juicy_gyro",
+                "helpfulness" : "0/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-01-16T00:00:00.000+0000"),
+                "summary" : "Arrived in great condition",
+                "text" : "Look, I'm not going to actually review these sticks because if you're going to buy drum sticks, you should already know how they feel.. If you've never tried these sticks before I would recommend going to a store and trying a few pairs out to make sure you like them... That being said, the sticks arrived when they were supposed to from the seller, and in perfect usable condition. Again, I already knew that I loved these sticks because I had played with them before, I was simply buying them online for the savings..."
+            },
+            {
+                "userId" : "A1JD3TGIV2CB7F",
+                "profileName" : "Triffer",
+                "helpfulness" : "0/1",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-08-09T00:00:00.000+0000"),
+                "summary" : "Vicfirth 3a drumsticks",
+                "text" : "Not bad,safely arrived tho it was delayed for a couple of days,but what matter is,its in my hands now and in satisfied =)"
+            },
+            {
+                "userId" : "AXY81ZKI0P2MK",
+                "profileName" : "Chance",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2009-04-01T00:00:00.000+0000"),
+                "summary" : "GREAT!",
+                "text" : "I got these drumsticks yesterday and these are great, they have great bounce and have great accuracy. It was a little heavy but you get used to it very quickly. GET THESE!"
+            },
+            {
+                "userId" : "AES3CQ8XKSDXF",
+                "profileName" : "avaquero",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-02T00:00:00.000+0000"),
+                "summary" : "Great purchase!",
+                "text" : "I bought these as a gift to my boyfriend, he loved them, purchase as described, will continue buying more of these!!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.833333333333333,
+            "reviewsCount" : NumberInt(6),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(5)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002GLC9K",
+    "value" : {
+        "title" : "Ice Pix Stainless Steel Guitar Picks - 3 Pack Heavy 3-Pack",
+        "reviews" : [
+            {
+                "userId" : "AOT11RM31U9K3",
+                "profileName" : "Gnomebe",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-11-09T00:00:00.000+0000"),
+                "summary" : "Copper is sucha Sweet sound!",
+                "text" : "I've been using these for years. MOST stores don't carry them. THERE METAL PICKS. Plastic picks I can't stand to play with anymore. The Thin version is the best and they also turn green after using them a while. Haven't tried the others, steel ect...Buy a set $5 not bad. Conversation starter... you might end up liking them!"
+            },
+            {
+                "userId" : "AECMID1U8FIHJ",
+                "profileName" : "Brandon Keesler",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-09-06T00:00:00.000+0000"),
+                "summary" : "Great Pick That Adds Great Sound",
+                "text" : "Using this pick increases the volume and intensity of your playing without an amp. Especially on phosphorus strings. Highly recommended."
+            },
+            {
+                "userId" : "A2PJKLBMQISYZH",
+                "profileName" : "JASONGGABBOTT \"GUITARROCKR\"",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-03-02T00:00:00.000+0000"),
+                "summary" : "Metal PIC from HELL!",
+                "text" : "This is AN AWESOME PIC! Just make sure you have some new strings on hand! It will DESTROY them FAST! BUT, what you are left with, IF YOU WERE RECORDING, WILL be KILLER!"
+            },
+            {
+                "userId" : "A36P3XVXLN329I",
+                "profileName" : "Santana Lee",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(3),
+                "time" : ISODate("2011-08-05T00:00:00.000+0000"),
+                "summary" : "Not bad but not good either",
+                "text" : "Upsides:-The tips won't wear down like on my other guitar picks-These little guys add a tiny almost un-notable amount of brightness-They feel great to hold-They'll last a long time and look cool-I can keep these in my pockets without worrying about snapping one or chipping themDownsides:-It sounds as if I were playing with a quarter. That's without exaggeration, I've actually played with coins before just for the heck of it.-I thought they'd have a bit more roundness to their edges, but they actually have flat edges which slows down playing-They really chew up your strings after a whileAll-n-all:They're worth a shot, everyone's different and likes different things. This could end up as your favorite. :)"
+            },
+            {
+                "userId" : "A2WFCMOISEGGVD",
+                "profileName" : "Benjamin Williamson",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-01-07T00:00:00.000+0000"),
+                "summary" : "Cool 'Pix', Okay Feel, Cool Sound, but Might Need Modification",
+                "text" : "After reading through the reviews of this products on a few different websites I went ahead and ordered some of the stainless steel guitar picks. I really like how smooth the beveled edge feels compared to the usual delrin or plastic picks, but they're a little bowl-shaped, so I'm having to go back and flatten them out myself (which I am not enjoying), and I don't like how one side is beveled while the other is not- this means I'm getting more of a scrape-pluck-scrape-pluck sound when I'm using alternating picking. I'm going to see if I can get my dad's help to make them really flat, a little more pointed and beveled on both sides. (He's a machinist.) I would recommend anyone buying them to consider doing the exact same thing (though, to be perfectly honest, you shouldn't have to go to this trouble at all). Again, they're good picks, and maybe I just got a lemon (which I'll have no trouble fixing, really), but if the rest of the picks coming from Ice Pix's manufacturer are the same as mine they'll need to be modified in order for you to get the full benefit, so don't fret. (Pardon the pun.) Now while you could, if you wanted, go and buy a 351 or jazz pick punch for about $25 ([...]), and get plastic sheets, in varying thicknesses, designed specifically for being punched into guitar picks ([...]), they're plastic, NOT metal, which has a completely different feel and sound! Anyway, try these metal picks out! They'll last you a lifetime and then some! I've heard some neat things about their brass picks, too, so maybe I'll those out a little further down the line."
+            },
+            {
+                "userId" : "unknown",
+                "profileName" : "unknown",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(4),
+                "time" : ISODate("2006-07-31T00:00:00.000+0000"),
+                "summary" : "Durable But Not Versatile",
+                "text" : "Hey these picks are very strong and durable. Because they are metal, they produce very twangy sounds, especially on acoustics. They are also extremely sturdy, and a pack of three is plenty to last you a while. The only problem, is that they can't produce a wide variety of sound. Their lack of versatility will come back to haunt you when you want to use different picking techniques to add some flavor to whatever it is your playing. These are great for metal though, because they are sharp and strong sounding, but for anything like prog, these picks make it difficult."
+            },
+            {
+                "userId" : "AFN48QU180GQ2",
+                "profileName" : "- \"darv_03\"",
+                "helpfulness" : "5/5",
+                "score" : NumberInt(1),
+                "time" : ISODate("2010-09-23T00:00:00.000+0000"),
+                "summary" : "poor quality",
+                "text" : "First, I thought these were the standard 351 shape and they are not. They are smaller and the tip is more blunt than the 351 making them a \"slower\" pick. But my real complaint is quality. As a former sheet metal punch press programmer these are my observations. Small parts \"oil-can\" when created with a single punch operation. These are \"oil-canned\" and not flat. No attempt was made to flatten them out. They are bowl shaped and the edges are square. Not beveled like the picture. I read another complaint before about this and it is true. For the cost I expected some quality. These picks literally cost about a penny a piece to manufacture \"as-sold\". You know how a machine gun sounds on auto-fire? That's how fast a CNC spits out parts like these."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 3.857142857142857,
+            "reviewsCount" : NumberInt(7),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(1),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(2),
+                "5" : NumberInt(3)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000NGKIDA",
+    "value" : {
+        "title" : "Daisy Rock Tom Boy Deuce (Rainbow Sparkle)",
+        "price" : 290.68,
+        "reviews" : [
+            {
+                "userId" : "A1T2GU0ENKUCB0",
+                "profileName" : "JL",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-02-22T00:00:00.000+0000"),
+                "summary" : "Great guitar",
+                "text" : "This guitar is the \"Ruby Sparkle\" as shown in the photo, although the item description says \"Rainbow Sparkle.\" It is a gorgeous looking and sounding guitar! Definitely worth the price. It came well set-up and included a Daisy Rock gig bag. (The bag is not the most padded bag out there, but is adequate - and free!) Just using my little Danelectro Honeytone mini ampDanelectro Honeytone N-10 Guitar Mini Amp, Blackit sounds excellent. Beautiful clear tones and chunky raw tones - truly a wide sonic range."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002D0AC8",
+    "value" : {
+        "title" : "Vandoren Soprano Saxophone Reeds #2.5, Box of 10",
+        "price" : 19.99,
+        "reviews" : [
+            {
+                "userId" : "A1NRUQATM4N658",
+                "profileName" : "Musician78",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-09-12T00:00:00.000+0000"),
+                "summary" : "Great as always",
+                "text" : "Vandoren Soprano Saxophone Reeds #2.5, Box of 10Vandoren delivers a great reed as always!! My personal favorite and a brand that always meets and exceeds my expectations!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002CZXKS",
+    "value" : {
+        "title" : "Zildjian K 16-Inch Dark Crash Cymbal Thin",
+        "price" : 249.95,
+        "reviews" : [
+            {
+                "userId" : "A3G40OIPT4I040",
+                "profileName" : "Hyun",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2013-02-15T00:00:00.000+0000"),
+                "summary" : "love the crash but very disappointed in Amazon.",
+                "text" : "The crash has a great dark sound and came very promptly. The thing I was disappointed in is that the description says \"new\" but it is clearly a used crash. There are the marks from it being on a crash stand and also scratches on the crash and some discoloring on the back. I felt like I had been a little deceived and am disappointed in Amazon. I know these crashes usually go for a long time but I would still like to have the comfort to know it is a new crash. I need it for a performance I am playing in 2 weeks, so I don't have time to return it but I hope that this is an exception and unintentional."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(3),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000EEJ6C0",
+    "value" : {
+        "title" : "Dunlop Dimebag Signature Wah Crybaby Pedal",
+        "price" : 139.99,
+        "reviews" : [
+            {
+                "userId" : "A8GRB72FI70TH",
+                "profileName" : "Samantha J. Bottler",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-01-07T00:00:00.000+0000"),
+                "summary" : "Awesome product...",
+                "text" : "I bought this product as Christmas for my boyfriend this year and he absolutly loves it. The best price on the web that was reliable! Only setback was how long it took to get here. (Alaska). Goooo Amazon!!"
+            },
+            {
+                "userId" : "ASA40OT8AIFS",
+                "profileName" : "Constance Giovinazzo",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2013-01-15T00:00:00.000+0000"),
+                "summary" : "Gift",
+                "text" : "Bought this as a Christmas gift for my husband and he loves it. I haven't heard one complaint from him."
+            },
+            {
+                "userId" : "A2U631KM7B077F",
+                "profileName" : "DrFlimFlam",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-02-09T00:00:00.000+0000"),
+                "summary" : "Simple Perfection in a wah",
+                "text" : "Bought this to give a little flavor to my tone and it has done so much more. With a simple turn of a knob you can change things with ease to give yourself that perfect sound."
+            },
+            {
+                "userId" : "A3J2CUCT8R5WNY",
+                "profileName" : "A Happy Customer",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-02-03T00:00:00.000+0000"),
+                "summary" : "Wonderful Pedal",
+                "text" : "I received this pedal as a gift, after noticing that most of my favorite bands utilize this pedal. It took but 2 hours of practice to take full control over this device. Every squeal, every dulled sound, every overdriven note is like a violent blessing upon your ears. This pedal will be great fun for any guitar player that likes to experiment, be you a novice or an expert. With all of the options Dunlop put on this pedal, it is easy to customize your experience, leaving countless options to play with.Enjoy this pedal; it will be your friend."
+            },
+            {
+                "userId" : "A3P281UAJ6K0DG",
+                "profileName" : "Healer",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-12-25T00:00:00.000+0000"),
+                "summary" : "Best Wah I've owned",
+                "text" : "I'll admit it.. I got one of these a few years back but never took the time to tweak it so I wrote it off as a bad wah.. After using a Bad Horsie wah for 2 years (great wah) I pulled out the ol Crybaby from hell. The variable Q is the key to getting this thing sounding great - as far the sweep adjuster goes I set it on 3 notches from the top and it gets that classic \"growl\". The boost is awesome too. The \"fine tune\" really doesn't so much of anything, I leave it set halfway."
+            },
+            {
+                "userId" : "AZ7CB1CLMK017",
+                "profileName" : "Kyle A.",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-06-04T00:00:00.000+0000"),
+                "summary" : "Dunlop Dimebag Signature Wah Crybaby Pedal",
+                "text" : "This pedal is awesome, a must get for guitarists. It may take some time dial-in the sound that you want and get used to what the knobs do."
+            },
+            {
+                "userId" : "A3V08DERYYZPR",
+                "profileName" : "michael smith",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-07-14T00:00:00.000+0000"),
+                "summary" : "DB01",
+                "text" : "This pedal is AWESOME!!!!!!!!!! I LOVE IT.........SOUNDS SO COOL AND VERY EASY TO USE.....WORTH EVERY PENNY! Michael Schenker Guitarist from the SCORPIONS, UFO and MSG is using the DB-01AWESOME!!!!!!"
+            },
+            {
+                "userId" : "A1IOY1K25NX9VM",
+                "profileName" : "Joris Spronck \"Jori-Wan Kenobi\"",
+                "helpfulness" : "8/9",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-11-09T00:00:00.000+0000"),
+                "summary" : "This thing's got all you need!",
+                "text" : "I must admit I never had any experience with wahs before. OK, I had one under my foot ONCE. It left me with the experience that I was gonna need a lot of time to make my foot do what my ears desired.I bought a wah anyway 'cause it's just an awesome effect. And since I'm the guy who loves little knobs and versatility, I went for the dime...Costed a little more than one though, but it's all worth it.It's really easy to understand what all the knobs do, and it helps the wah-rookie to get into the groove. Starting with a very moderate setting, your foot can't do much wrong, and you won't get the feeling that you can't get a decent tone out of it.And after surpisingly little time you're the master!I play around with the settings a lot, and I wouldn't want tot miss it for the world! No standard budget-crybaby for me, thanks, no sir..."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.875,
+            "reviewsCount" : NumberInt(8),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(7)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002I73A0",
+    "value" : {
+        "title" : "BC Rich Warlock Metal Master Guitar Package (Black)",
+        "reviews" : [
+            {
+                "userId" : "AQRMORM5ESFB3",
+                "profileName" : "Valerio Quimera \"is there anybody out there?\"",
+                "helpfulness" : "4/19",
+                "score" : NumberInt(3),
+                "time" : ISODate("2004-09-01T00:00:00.000+0000"),
+                "summary" : "kinda cool but.........",
+                "text" : "the product looks kinda cool, i've been playing guitar for over 10 years and i know what's the best on guitars, the model and shape of this guitar look very cool, but dude, i don't don't want to see a box, i want to see the real thing."
+            },
+            {
+                "userId" : "unknown",
+                "profileName" : "unknown",
+                "helpfulness" : "0/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-03-29T00:00:00.000+0000"),
+                "summary" : "This Rocks!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+                "text" : "I am a beginner, and this is good for beginers because it comes with a video to teach you!!!!!!!!!!!!!!!!!!!!!!!"
+            },
+            {
+                "userId" : "AIYE8OSUB9TV7",
+                "profileName" : "Matt Phillips",
+                "helpfulness" : "5/6",
+                "score" : NumberInt(4),
+                "time" : ISODate("2005-10-04T00:00:00.000+0000"),
+                "summary" : "A Must Have !!!",
+                "text" : "Awsome Guitar For The Price. As you surely know, Bc Rich reputation for building Crazy looking guitar is very good. The Bc Rich Warlock \"tribe\" have one of the best body I ever seen. The neck is tight.. u can play really fast. Xcellent shape... u can easely reach the 24th fret.On a Clean Amplifier the sound is not really nice. But Connect that guitar to a Metal Zone pedal or a Pod xt... and You can play Metal such as Slipknot to Metallica. Really good potential if u know how to use it.Beginner to Pro... its a must have if U are a Metal Head."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(3),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(1),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002H0R9U",
+    "value" : {
+        "title" : "Sabian AAX 16 Inch Bright Crash",
+        "reviews" : [
+            {
+                "userId" : "A2F7H5LVH4POBK",
+                "profileName" : "Mike \"MrMominVaBeach\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-11-28T00:00:00.000+0000"),
+                "summary" : "My favorite Crash!",
+                "text" : "I got this from Amazon a couple months ago...I had two other Sabian crashes (18\" med and 16\" med). I got this 16\" thin for a variety of tone. At first I wasn't quite used to a crash sounding so \"thin\". I beat the HECK out of cymbals! I love it though, because not every crash needs to wash out the entire room...just adding this...made me a better drummer."
+            },
+            {
+                "userId" : "A1USHAU1KFKXGH",
+                "profileName" : "John E. Schwab \"Blu-Ray Freak\"",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-11-27T00:00:00.000+0000"),
+                "summary" : "awesome crash!!",
+                "text" : "Sabian AAX Bright crash 16 inches is very clean with lots of tone.Sabian,you can't go wrong..and you can't go wrong with Amazon and the price that they are laying down on this one.."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002V0SGS",
+    "value" : {
+        "title" : "Canto One-Piece Translucent Soprano Recorder with Baroque Fingering Transparent Yellow",
+        "price" : 4.49,
+        "reviews" : [
+            {
+                "userId" : "ARD34Y1POWV7G",
+                "profileName" : "K.Z.M",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-06-02T00:00:00.000+0000"),
+                "summary" : "Wonderfull!",
+                "text" : "This recorder is just wonderfull! I bought one recently and it's great! The price is right to! 2.00$! It's..... WONDERFULL! Buy one and you will be astonished!"
+            },
+            {
+                "userId" : "A2IZTMHLT0BSCO",
+                "profileName" : "Bargain shopper \"momw4kids\"",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-10-31T00:00:00.000+0000"),
+                "summary" : "Great product & price!",
+                "text" : "I purchased a few of these for my children. They are great quality and inexpensive. Good stocking stuffer, too. Perfect for music class. Our school requires buying a recorder. This is a great buy. You do have to pay shipping, but it is not very much, especially if you buy more than one."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002BBPIS",
+    "value" : {
+        "title" : "11\" x 6-1/2\" Paging Horn Indoor/Outdoor",
+        "price" : 39.95,
+        "reviews" : [
+            {
+                "userId" : "A2147N06A9W9DN",
+                "profileName" : "Carol K. Conlon",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-08-07T00:00:00.000+0000"),
+                "summary" : "Good for the money.",
+                "text" : "Speaker is durable. Suited for indoor or outdoor use. Gives good sound for a paging horn. Fast shipping!!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0007WLWMG",
+    "value" : {
+        "title" : "Jim Dunlop 71S Dunlop Gtr Capo Sngl Hvy",
+        "price" : 3.96,
+        "reviews" : [
+            {
+                "userId" : "A14GH1HUY3L3TK",
+                "profileName" : "mozbrooklyn",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2010-11-03T00:00:00.000+0000"),
+                "summary" : "Okay, but not amazing..",
+                "text" : "I am going to have to say I did not like this capo. It was too flimsy way too soon and often did not work correctly. It would bend up in the middle, so the top and bottom strings were against the board, but the middle ones weren't held tight enough, producing a buzz. It might work better on a smaller guitar, it worked okay on my electric."
+            },
+            {
+                "userId" : "A2Z67JSB6AP5RF",
+                "profileName" : "Cruiz7197",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2011-02-19T00:00:00.000+0000"),
+                "summary" : "The most basic capo--does the job",
+                "text" : "We bought this because knuckle-head thieves at OUR CHAPEL keep stealing the Kaiser capos we bpough for the guitars there...at $3, we don't really care if these dissappear. They are easy to use and effective."
+            },
+            {
+                "userId" : "AXR7OW16QIW13",
+                "profileName" : "Squeeattle",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-08-25T00:00:00.000+0000"),
+                "summary" : "Actually Like It A Lot",
+                "text" : "While sometimes I have to shift it up or down after putting it on the guitar to make sure it is settled fine across all the strings, it stays in place while playing, and I feel like this thing would never ever be able to hurt my guitar (which was the main factor for me over buying a solid metal one). Moral of the story: it's not insta-perfect, but it works, it's cheap, it's harmless, and I would buy it again."
+            },
+            {
+                "userId" : "A33XYLCHLWH0O7",
+                "profileName" : "Sarah",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-12-31T00:00:00.000+0000"),
+                "summary" : "like it alot",
+                "text" : "love this caps its really cool so far it hasnt stretched out. the bar is like a rubber clay sort of so it forms to your strings. I would recommend this any buy it again. great price too"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(4),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(2),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002GJKIK",
+    "value" : {
+        "title" : "Dunlop 474R30 Stubby Jazz Picks (3.0MM) (24 Picks)",
+        "price" : 11.79,
+        "reviews" : [
+            {
+                "userId" : "A2C7BOQVFH1HLE",
+                "profileName" : "Frederick Baptist",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(3),
+                "time" : ISODate("2009-01-03T00:00:00.000+0000"),
+                "summary" : "Big, Fat, Sturdy, Great for Bass But Not For Me!",
+                "text" : "The thing about picks or plectrums if you prefer is that they are really a matter of preference and once you pick one (no pun intended) you should try to stick to it and get used to it through practice. I've used many different types of picks over the years and I've not found the ideal one for me until recently when I decided to use a SilverPick which is basically a standard triangle thin design but made of silver which I find fits my needs the best and so far it's just a case of getting used to it.This particular Dunlop pick is as described being fat, stubby and sturdy with a nice grippable centre however if you are the kind of lead guitarist who uses a lot of pinch harmonics this pick will be difficult for you as the maximum grip and most comfortable holding position exposes a lot of the pick face. The hardness will make it good for fast playing but the thickness also makes it difficult to get a firm grip and accuracy of string picking too. For those who play bass ala Paul McCartney style though will find this pick excellently suited for them. For me though, I'll keep this among my collection of picks for use but it's not my default or preferred choice for play."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(3),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0009QTQ2S",
+    "value" : {
+        "title" : "Dunlop Herco Transparent Pickguard Set",
+        "price" : 5.82,
+        "reviews" : [
+            {
+                "userId" : "A2G548RFY03L2D",
+                "profileName" : "Christian Paley \"WIZARD\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(1),
+                "time" : ISODate("2013-01-09T00:00:00.000+0000"),
+                "summary" : "This is crap",
+                "text" : "dont buy it . go with the ones that you have to cut yourself.just use an exato knife. presto"
+            },
+            {
+                "userId" : "A1T24BIQHS3J8O",
+                "profileName" : "Rodrigo",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2013-02-25T00:00:00.000+0000"),
+                "summary" : "no that great",
+                "text" : "These guards are too thin to offer much protection. . They will stop finger nail damage if you get carried away playing fflamenco ? I dont know will see"
+            },
+            {
+                "userId" : "A14R1NVCHZK8GR",
+                "profileName" : "Robin Ford \"RoFo\"",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(2),
+                "time" : ISODate("2009-10-21T00:00:00.000+0000"),
+                "summary" : "Shine defeats the purpose.",
+                "text" : "I have never been a huge fan of the look of pick guard, but wanted to protect the top on my Seagull S6 (cedar top), so I thought a clear pick-guard was the way to go. At my local guitar store there was a Baden guitar with a clear pick guard that was almost invisible - I didn't even realize it had a pick guard until someone pointed it out to me. So, I raced home and ordered this clear pick-guard.I had no trouble removing the existing pick guard, and installation of this new, clear guard was very simple. Unfortunately, as soon as I had attached it I realized that, unlike the clear pick guard I had (not) seen in the store, this one was glossy. As a result, it was really easy to tell that there was a clear pick-guard on the guitar, which defeats the entire purpose. It ended up looking like I had just put a big piece of tape under the soundhole, which was really tacky looking. Maybe it would have looked better if my guitar was glossy, but on my satin finish it just looked awful.So, I decided to remove this pick-guard, only to discover that it was much more difficult to remove than the original guard. It took a lot more heat to get this one off (I used a hair-dryer) and the glue was a lot harder to remove as well.Overall I would not recommend this product.Also, be aware that if you are removing an existing pick-guard there will be a \"tan line\" even on a relatively new guitar. I'm hoping that mine will fade but had I known all of the trouble that this process would cause me I would have just lived with the original guard."
+            },
+            {
+                "userId" : "A3RVF19ER43NWF",
+                "profileName" : "Mariela",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-02-28T00:00:00.000+0000"),
+                "summary" : "Good to protect your guitar",
+                "text" : "Good quality. I have it on a classic guitar and it does not show or change the color of the guitar."
+            },
+            {
+                "userId" : "A2BTXUU7FROCD8",
+                "profileName" : "Omiss \"O.K.\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(4),
+                "time" : ISODate("2010-02-07T00:00:00.000+0000"),
+                "summary" : "It's what I was looking for!",
+                "text" : "I've been looking for a thin pickguard for a long time in many different instrument/guitar stores for my classic Guitar which I purchased new but I didn't find one and I wanted to see and feel it before I buy it therefor I was hesitating to get it from a online store but I left with no choice so went for this one. I play Flamenco and I didn't want to leave my nail's mark on the guitar since flamenco play has too much tapping on the guitar. This pickguard is not the best quality but fair for the money and it does the job. The main advantage of it is that it does not change the tapping sound very much unlike some other thick pickguards in the market. It's almost invisible on the guitar if you apply it well without air bubble. You need to be very careful pasting it though because if you don't adjust it well, you can't take it off, the glue is very strong. You need to start from one end and gradually lean it to the other end.I've played a lot on it and it seems that it protects the board pretty well. It looks like a once forever kind of sticker though that once you applied, you're gonna have to leave it there because it doesn't come off easy (I've not tried but it's obvious)."
+            },
+            {
+                "userId" : "A2B00RVXN7IZI0",
+                "profileName" : "Jonathan",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(2),
+                "time" : ISODate("2011-10-10T00:00:00.000+0000"),
+                "summary" : "Too thin",
+                "text" : "These guards are too thin to offer much protection. They will help a pick slide off, but wear out quickly. They will not stop finger nail damage if you get carried away playing flamenco. You can find thicker material at the Stewart MacDonald website."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 2.8333333333333335,
+            "reviewsCount" : NumberInt(6),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(1),
+                "2" : NumberInt(2),
+                "3" : NumberInt(1),
+                "4" : NumberInt(1),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002EJWUS",
+    "value" : {
+        "title" : "Rhythm Band Rhythm Snare Boy",
+        "price" : 10.19,
+        "reviews" : [
+            {
+                "userId" : "A2XO2I73A5U8TG",
+                "profileName" : "J. Hoenig",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2010-05-17T00:00:00.000+0000"),
+                "summary" : "OK",
+                "text" : "I was a little disappionted with the sound quality of this item-- but if you put a mouse pad over it, it'll sound almost like the real thing."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002CZRZO",
+    "value" : {
+        "title" : "Amazon.com: Protec Deluxe Sousaphone Bag Instrument Case,Black: Musical Instruments",
+        "reviews" : [
+            {
+                "userId" : "A617BUZAOZ4IW",
+                "profileName" : "james d parfitt",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-10-01T00:00:00.000+0000"),
+                "summary" : "Love it!",
+                "text" : "Great bag for my huge Reynolds sousaphone. I have a plastic hard case for it that's so big it won't fit in my car, so i got this. The prices seem to vary quite a bit, so watch that. I like this bag because it is well designed, heavily built, very well padded and has a super heavy zipper (very important!). The backpack straps are fine, but need to be shortened methinks, unless you happen to be a basketball player. It has a couple grab straps which work great in case you need to hurl the whole package for some reason. In a pinch, it makes for a great survival sleeping pod, but you'll have to curl up. (Don't laugh, I've slept in my tuba bag a few times already.) If you need a case for your sousie, this is the only way to go."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002ZO3JM",
+    "value" : {
+        "title" : "On Stage DS300B Quik Release Desk Microphone Stand",
+        "price" : 17.95,
+        "reviews" : [
+            {
+                "userId" : "AO6B4CJIJ3EJF",
+                "profileName" : "James Knight",
+                "helpfulness" : "3/6",
+                "score" : NumberInt(4),
+                "time" : ISODate("2007-05-25T00:00:00.000+0000"),
+                "summary" : "Desktop Standing Ovation",
+                "text" : "I have found this product excellent for mounting my microphone for recording or just talking while at my computer."
+            },
+            {
+                "userId" : "A1F8KNHZG3Q9R9",
+                "profileName" : "R. Bratton \"codeman\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-06-07T00:00:00.000+0000"),
+                "summary" : "Good quality",
+                "text" : "This is a good solidly built desk mic stand. The base is not heavy enough for the Samson CO3U if extended out but fine if just holding on the desk. Really a solid and well built stand. I've had this several years and use it daily and it looks brand new."
+            },
+            {
+                "userId" : "A38TH27CGW2X25",
+                "profileName" : "Kristafer Vale",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-06-09T00:00:00.000+0000"),
+                "summary" : "Works well good value overall",
+                "text" : "This product works well and is a real space saver over having a full sized mic stand in my home office / studio.Sturdy construction and overall a very nice stand."
+            },
+            {
+                "userId" : "A36T0MYKF1TTUR",
+                "profileName" : "B. Rich",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2012-10-14T00:00:00.000+0000"),
+                "summary" : "So here's something I didn't think about...",
+                "text" : "I'm using this stand to mic a guitar amplifier where the center of the speaker is about 8 inches off the surface that the amp is sitting on. I want the stand bent over with the mic pointing to the side, so the arm is parallel to the face of the amp and the stand is out of the way. I've had a couple other stands (not sure where they are - I seem to have lost them in a move) and one thing I didn't think about when I ordered this one was what direction the mic would be pointing based on how the mic holder screws on. When I tightened the mic holder on, it was pointing the right direction for its intended use - sitting in front of someone with the mic pointing straight forward. I'm not sure if that was just coincidence or if the thread orientation is somehow standardized. Anyway, to get the mic pointing to the side, I had to really tighten it down, a little more than I was comfortable with. On a true boom mic stand with an adjustable length arm, you just put the mic holder on however tight you want it and then just rotate the boom when you adjust the length/position. That's not an option on is stand.Aside from that, it seems okay. It's compact, the base is heavy and the \"quik release\" adjustment isn't quicker than a traditional joint but it seems secure. But if I could do it again, I would try the Samson MB1 stand instead."
+            },
+            {
+                "userId" : "A1FKXBYN0N9QB4",
+                "profileName" : "nicholas cronin",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2012-11-21T00:00:00.000+0000"),
+                "summary" : "Good product but base isn't big enough.",
+                "text" : "The base should be bigger. I have a fairly heavy condenser mic and it will make the stand fall over if it isn't vertical. With a regular light mic I don't see this as an issue"
+            },
+            {
+                "userId" : "A1F5UPXKIDDXPB",
+                "profileName" : "Mrsdriven4him",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-12-14T00:00:00.000+0000"),
+                "summary" : "just perfect",
+                "text" : "my husband records a radio program while he is on the road for work and this is just perfect. he can set it up on the hotel desk and get the show done then pack it back up. fits just fine."
+            },
+            {
+                "userId" : "A1M91SVHPD9J5Q",
+                "profileName" : "Laura",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2013-02-20T00:00:00.000+0000"),
+                "summary" : "Great!",
+                "text" : "This product was exactly what I wanted. It's small for my desktop but good enough weight to sustain my microphone."
+            },
+            {
+                "userId" : "AVMCNEX8O4YBV",
+                "profileName" : "Ryan Lagola",
+                "helpfulness" : "4/6",
+                "score" : NumberInt(4),
+                "time" : ISODate("2009-10-03T00:00:00.000+0000"),
+                "summary" : "Good bang for the buck",
+                "text" : "Great product...very sturdy. The only downside is that, once you put the mic on the stand, it keeps falling over. There needs to be some counterweights in the base so that this won't happen."
+            },
+            {
+                "userId" : "A266OFMXUAUOII",
+                "profileName" : "K. CRAIG",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2009-09-30T00:00:00.000+0000"),
+                "summary" : "Outstanding, Small, Desk/Amp Mic solution",
+                "text" : "Simply the best I've dealt with for small format \"boom\" solution. I've not experienced tilt issues, incidentally. Proceded with purchase after using extensively for work-related media solutions. Very pleasing, and well-weighted. - k"
+            },
+            {
+                "userId" : "A2MXWJA0RJX2W2",
+                "profileName" : "J. Stahlecker",
+                "helpfulness" : "5/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-12-17T00:00:00.000+0000"),
+                "summary" : "Posilik Stand",
+                "text" : "The On-Stage 6515 Posi-lok mic stand was used in a conference room with excellent results. The base is heavy enough to not tip over and the interlocking adjustment mechanism holds the mic height securely. Very good value."
+            },
+            {
+                "userId" : "AA7U3896GAM8M",
+                "profileName" : "William Moilanen DDS \"Dr. Bill\"",
+                "helpfulness" : "6/6",
+                "score" : NumberInt(2),
+                "time" : ISODate("2008-12-18T00:00:00.000+0000"),
+                "summary" : "A bit tippy...",
+                "text" : "I put a Behringer condensor microphone and pop filter on this stand. If I bring the boom down more than 10 degrees from the vertical, it becomes tippy and unstable. I'm going to use a lighter microphone and get a conventional desktop stand for the Behringer."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.090909090909091,
+            "reviewsCount" : NumberInt(11),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(1),
+                "3" : NumberInt(2),
+                "4" : NumberInt(3),
+                "5" : NumberInt(5)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002OMPB6",
+    "value" : {
+        "title" : "Lightweight Tenor Sax Case",
+        "reviews" : [
+            {
+                "userId" : "A2GVNTZW2U510U",
+                "profileName" : "J. S. Geers \"saintsday\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-02-19T00:00:00.000+0000"),
+                "summary" : "Great value!",
+                "text" : "I've been buying Gator GL cases for my vintage saxophones for several years and have found them to fit a wide variety of instruments, including big bell Keilwerths and Bueschers. I've had no issues with quality on the 7 or 8 of these I've bought. They don't offer enough protection to check your saxophone on an airline (you would want an Anvil case), but they are compact and light enough to carry on with lots of pockets for reeds, mouthpieces, etc. If this case doesn't offer enough protection for you, you aren't treating your saxophone very well."
+            },
+            {
+                "userId" : "ARYT5SJIP9RFN",
+                "profileName" : "annielaurie \"lover of books, music, animals, ...",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(1),
+                "time" : ISODate("2009-06-17T00:00:00.000+0000"),
+                "summary" : "Falling apart already!",
+                "text" : "My son got this for a Christmas gift in '08, and the outer zipper compartment has already come unstitched from the case, leaving a gaping hole and rendering said zipper compartment unusable. I sent an email to the Gator Company so we'll see if they stand behind their product.UPDATE: Nov. '09: Never got ANY reply from them. So much for Gator's customer service. I will try once more, but at this point I can't go any lower than 1 star...UPDATE: April '10: Nothing. Wrote to them again, and NOTHING. Go with a different manufacturer who has a functional customer service department."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(3),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(1),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002CZR7M",
+    "value" : {
+        "title" : "Pro-Mark SRBLU Stick Rapp Drumstick Wrap, Blue",
+        "price" : 7.09,
+        "reviews" : [
+            {
+                "userId" : "A312BFBVY5X5FN",
+                "profileName" : "MAX",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-02-10T00:00:00.000+0000"),
+                "summary" : "Grippy.",
+                "text" : "If your looking for more grip on your sticks, these will defenitly do the job. There easy to apply, and can be reused at least a few times. Great product."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000EENE3W",
+    "value" : {
+        "title" : "SignalFlex Microphone Windscreen - Blue",
+        "price" : 4.23,
+        "reviews" : [
+            {
+                "userId" : "A25EA4Q5JAGUKT",
+                "profileName" : "K. Givens",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2009-05-13T00:00:00.000+0000"),
+                "summary" : "As described",
+                "text" : "They serve their purpose, have held up pretty well. They are as described. Price is good."
+            },
+            {
+                "userId" : "A2AFAIE3L3FXOP",
+                "profileName" : "Tenderghost",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2011-12-27T00:00:00.000+0000"),
+                "summary" : "Less muffled, long lasting, deep fitting windscreen - minor problems",
+                "text" : "Almost three years later... admittedly I did not use this on stage most of the time, but for what it is and the price, it has lasted well.I just replaced it with a \"Tour Grade Ball Style Foam Windscreen\", which is smaller, looks sharper and fits more snugly, but the new one has a denser/thicker foam and sounds more muffled than this one.This windscreen is not \"Ball Style\" and has a deeper fit covering all of the mic and then some. At one gig where we were playing loud in an enclosed area, this windscreen seemed to increase feedback - my suspicion was that the extra coverage on the rear was interfering with the cardioid pattern of the mic, allowing more bleed, because when I removed it the feedback less of an issue.The large size and coverage of this windscreen has also worked well as a protective dust cover for mics that I left out in the studio for longer periods of time.Pros:- Not very dense of a foam so it does not muffle the sound as much as the \"Tour Grade ...\".- Lasts a ridiculously long time.- Tough resilient foam.- Large enough to fit easily over any hand held microphone.Cons:- Large size means it is not a very snug fit. It never fell off, but then again if I swung it around on stage, seems like it would.- The tube-like shape doesn't look as good because of the deeper fitting windscreen that covers more of the mic, the \"Ball Style\" is definitely more striking in my opinion.- Has a deeper fit over the mic therefore it may interfere with the cardioid pattern of the mic.Summary. Not cute looking and potentially interferes with mic cardioid pattern, but long lasting, versatile and less muffled. Very good but not great."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.5,
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000AAOU10",
+    "value" : {
+        "title" : "DR Strings Acoustic Guitar Strings, Black Beauties - Black Coated, 12-54",
+        "price" : 9.92,
+        "reviews" : [
+            {
+                "userId" : "A3M0CTLGQCN2KT",
+                "profileName" : "Zeno Zimbabwe",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2013-01-07T00:00:00.000+0000"),
+                "summary" : "Decent strings!",
+                "text" : "I bought a pack of these from Amazon Warehouse deals for $5 and for that price, they are great. They don't feel quite as nice as Elixir's but the sound is nice. The black color of the strings is unimportant to me. I but strings for the sound and feel, not cosmetics."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002H0QHS",
+    "value" : {
+        "title" : "DBX 1066 Dual Compressor Limiter Gate",
+        "price" : 429.95,
+        "reviews" : [
+            {
+                "userId" : "AD5G39PJUJVJ",
+                "profileName" : "James E. Sink \"Jimsi777\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-04-26T00:00:00.000+0000"),
+                "summary" : "Good all around Compressor",
+                "text" : "Sometimes I think alot of people don't have a clue as to the use or how to use a compressor. I like this for all around use for vocals, guitars, some bass and even mastering tracks on my software sub mix bus, this can smoothing out the peaks if set correctly, can fatten up guitar tracks if attack and relaese and threshold are properly set...Its worth its money for all around use and is clean if set up properly....good deal"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000B9J538",
+    "value" : {
+        "title" : "6 String Travel Guitar - Black",
+        "reviews" : [
+            {
+                "userId" : "A1IBT81PPRG115",
+                "profileName" : "Bob Carroll : Goopluspluscom \"multi-search, ...",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(2),
+                "time" : ISODate("2005-11-27T00:00:00.000+0000"),
+                "summary" : "Backpacker Travel Guitar - Fake Clone",
+                "text" : "These look identical to many I see on Ebay and elsewhere. I picked up a couple real cheap (elsewhere), one natural blonde and the other black.I bought them for house decoration with no illusion about getting any good sounds out of them. For house decoration purpose, they are fine. From a distance they look quite nice on a living room wall.Tuning them up was problematic. You must move the small wooden bridge to get the scale to match up to the fret markings. I found that about equadistant from the bottom of the soundhole to the bottom of the guitar was about right.As happens with many new stringed instruments, strings are not likely to stay tuned in the first hour or two after tuning. You might as well just get close and wait a couple of hours before any more fine tuning. After the wait, the guitars both stayed in tune fairly well.The lacquer was slightly sloppy on the black one I bought and very sloppy on the natural one. After getting everything tuned reasonably well, I found the black one made some partially good sound. The natural one was just audibly hopeless.Because of the low quality build you must play more precisely to get a good sound - maybe that's a good thing for casual practicing. These cheap guitars are a little louder than I expected and on the black one I could close-mike it about 9 inches from the sound hole with a Shure SM57 and actually get some useful, recordable sounds. To my surprise, because there is no bass to speak of, you can get a bright, jangly and very present sound that may prove useful in some recording mixes (black one only.)Bottom line: good for decoration or a cheap present for your kids and if you're really lucky you might find one that makes some useful sounds."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(2),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(1),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002EJRPI",
+    "value" : {
+        "title" : "Bach Stradivarius Trumpet Gold Trim Kit W/ Standard Bottom Caps",
+        "price" : 105.12,
+        "reviews" : [
+            {
+                "userId" : "AW9DKOL8ASXHL",
+                "profileName" : "Thomas Conkling \"Tom\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-12-24T00:00:00.000+0000"),
+                "summary" : "Good Buy!",
+                "text" : "This was the best price I found on this item. Shipping was reasonably fast and the set looks great, it was easy to install on the trumpet and really adds a nice accent."
+            },
+            {
+                "userId" : "A3SYGA3PO0ASSE",
+                "profileName" : "Taylor",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2013-01-05T00:00:00.000+0000"),
+                "summary" : "beautiful but not flawless",
+                "text" : "The gold trim pieces look beautiful on a good strad. But the particular set I received had rust-like spots on a few pieces which kind of disappointed me with how much I paid. But from a few feet away it wasn't noticeable. Overall a very cool thing to have to bling out an all silver strad!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.5,
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000GTMSGY",
+    "value" : {
+        "title" : "Gator 10U Top, 6U Side DJ Station (GDJ-10X6)",
+        "price" : 159.99,
+        "reviews" : [
+            {
+                "userId" : "A16MW2HBELU5FE",
+                "profileName" : "Flo",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-07T00:00:00.000+0000"),
+                "summary" : "Best rack for the price",
+                "text" : "I have my pwer conditioner, mixer,eq,karaoke player n witeless mic. All together n no problem wid the set up cause wht i did is i let it sit in the sun for few hours till the plastic sets up right then i screw them up gently wid it included(surprisingly)! Too bad i have to make a new holes for my headphone n mic holder but it does the work n its now easy to bring my gear anywhere i go"
+            },
+            {
+                "userId" : "A2YGNY44QWEF46",
+                "profileName" : "Tip-Top Beat Shop",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(3),
+                "time" : ISODate("2011-03-11T00:00:00.000+0000"),
+                "summary" : "Decent Rack",
+                "text" : "I like the look and feel of this rack, and the cover. However, I'm having trouble installing my stuff into it. It seems like no matter where I put my rack components, they will never line up with the brackets correctly. I have to leave at least one space between each, meaning I will have to purchase another rack if I decide to use any more side-mounted components. Seems odd that every piece is either 1U or 2U but will not fit positioned directly underneath each other, but WILL fit in the same position.. if you can understand what I'm trying to say. I bought this because I needed 5U on the side. I will have to reposition my power conditioner into a top space so that I can insert my crossover. My 2U amp just does not fit. I have it sitting on the bottom spaces with only the top screw holes mounted in place, the bottom screws are fitted UNDER the mounting holes, and just barely grab the bottom edge of the faceplate on the amp. But this was intended to be a temporary fix to protect my new stuff and it will suffice until I need an upgrade."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000284W4U",
+    "value" : {
+        "title" : "First Act Discovery FL319 Learn & Play Drum Pad",
+        "price" : 12.37,
+        "reviews" : [
+            {
+                "userId" : "A3T4L9Z9J3YXW5",
+                "profileName" : "G \"gmom\"",
+                "helpfulness" : "1/2",
+                "score" : NumberInt(3),
+                "time" : ISODate("2008-12-16T00:00:00.000+0000"),
+                "summary" : "missed the beat",
+                "text" : "gave these to my six year old, but didn't sit down and show him how it worked. the drum sticks ended up on the floor of the play room. i think we missed the beat. moral of the story is, if you don't have time to sit and learn w/ child, product isn't self-explanitory."
+            },
+            {
+                "userId" : "AQ4L89ACUQUYL",
+                "profileName" : "K. Martin",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(3),
+                "time" : ISODate("2008-10-09T00:00:00.000+0000"),
+                "summary" : "Not too bad",
+                "text" : "The sticks are a little small for my 8 yr. old. The book is hard to understand without a basic background in music. Wish there was a c.d. or something with it. It arrived on time. Good price."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(3),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(2),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000A15XIS",
+    "value" : {
+        "title" : "Blessing MPC3CCR 3C Cornet Mouthpiece",
+        "price" : 21.63,
+        "reviews" : [
+            {
+                "userId" : "A2XSTWJBFSR1MI",
+                "profileName" : "Apes",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-09-09T00:00:00.000+0000"),
+                "summary" : "Blessing Mouthpiece",
+                "text" : "The Blessing MPC3CCR 3C Cornet Mouthpiece is a excellent product currently being used by a high school student. It met expectations of being a quality product for a student instrument. The Blessing Cornet Mouthpiece fit nicely with the instrument and has been very comfortable for the student to use. Over all the Blessing MPC3CCR 3C Cornet Mouthpiece is an excellent choice when it is time to get a larger mouthpeice for your Cornet."
+            },
+            {
+                "userId" : "A3MC79EQ1HU77X",
+                "profileName" : "dairyfather",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-12-20T00:00:00.000+0000"),
+                "summary" : "Good cornet mouthpiece",
+                "text" : "Good mouthpiece at a great price. It is comparable to a Bach 3c at about half the price. There are not a lot of cornet mouthpieces out there, but if you're looking for this size, you won't be disappointed."
+            },
+            {
+                "userId" : "A30TT7GTLNU9UG",
+                "profileName" : "John P. Healy \"zentojazz\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-01-25T00:00:00.000+0000"),
+                "summary" : "Very Good Cornet Mouthpiece",
+                "text" : "The Blessing 3C cornet mouthpiece turned out to be as good as the flugelhorn and trumpet mouthpiece I recently purchased ,even though the postal delivery was to the wrong apartment in my building! My neighbor returned the package to me . Ok so the playing of the cornet with the new Blessing mouthpiece has been going very well compared to myBach cornet mouthpieces which I have several sizes,I don't know for sure why but it could be the rim size of the Blessing 3 is larger than my Bachs like a Bach 7C original mouthpiece with the cornet,and a Bach 5C. I believe a wider rim is the way to go for me ,but time will tell. Playing points,slurs are excellent and smooth with the Blessing 3C,going from low to high notes is smoother and comfortable,and finally the tone is fuller due to the larger rim size and the moderate cup depth C. At the price of the Blessing which is about half of the usual Bach price. All things together I would highly advise get a Blessing mouthpiece for your cornet,trumpet or flugelhorn(very nice flugel mouthpiece)Just one other point I notice the Bach mouthpieces at the shank have no bevel and on the Blessing as well as the Jet Tone mouthpieces have a smooth bevel at the shank end which iis there for a reason,and I believe it helps the airstream move smoothly thru the receiver of the trumpet or cornet. The somewhat rough edge of the shank of the Bach mouthpiece may not seem important,but then why do other mouthpiece makers take care and make sure the end of the shank is nicely beveled? I am not an expert by any means ,this is something I have noticed and not seen or heard from trumpet players about this facet of the mouthpiece. I do know the mouthpieces with the bevel shank seem to play very well."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.666666666666667,
+            "reviewsCount" : NumberInt(3),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002E1G4I",
+    "value" : {
+        "title" : "Mackie RM1642-VLZ Rackmount Brackets for 1642-VLZ Pro & VLZ3",
+        "price" : 59.99,
+        "reviews" : [
+            {
+                "userId" : "A3EU0ASCR78JCZ",
+                "profileName" : "Nolan S. Ahn",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2011-10-20T00:00:00.000+0000"),
+                "summary" : "It does what it's supposed to do.",
+                "text" : "A rack bracket only has to do two things...fit the mixer for which it's made, and fit the mounts it's going in. This bracket worked. My only \"beef\" is that they charge so much for 2 glorified angle irons with holes."
+            },
+            {
+                "userId" : "A1LXQDOJ1VCTC7",
+                "profileName" : "Allen Grossman",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-27T00:00:00.000+0000"),
+                "summary" : "Mackie side rails for typical 19&#34; racking",
+                "text" : "Perfect, a little pricey, but exactly what I expected. Read the instructions or you will put this thing on wrong"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.5,
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002E58KQ",
+    "value" : {
+        "title" : "Jensen C8R 8\" 25 Watt Guitar Speaker, 8 ohm",
+        "price" : 34.5,
+        "reviews" : [
+            {
+                "userId" : "A1OJGJ2XIFX4SR",
+                "profileName" : "George Keller",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-12-29T00:00:00.000+0000"),
+                "summary" : "c8r --JENSEN",
+                "text" : "I upgraded the speaker in a pathfinder 15 to the c8r JENSEN. Immediately I noticed an improvement in the tone and volume. Everything was a little crisper and lively. The c8r is a very good sounding speaker that I recommend to anyone for a nice vintage tone"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002E1O9A",
+    "value" : {
+        "title" : "Elixir Strings Acoustic Guitar Strings, 12-String, Heavy NANOWEB Coating",
+        "price" : 18.82,
+        "reviews" : [
+            {
+                "userId" : "A3PP8YYMEAAMHM",
+                "profileName" : "oldman",
+                "helpfulness" : "0/2",
+                "score" : NumberInt(3),
+                "time" : ISODate("2013-01-02T00:00:00.000+0000"),
+                "summary" : "strings popped after couple restringings",
+                "text" : "have been working on guitar trying to get action down and have had to string and un string guitar to make adjustment had several strings snap after couple restrings. never had this happen with lighter gauge strings. but they did produce nice sund for what little time i used them"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(3),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(1),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002GJP6C",
+    "value" : {
+        "title" : "Dean Edge Quilt Top 4-String Bass, Trans Blue",
+        "price" : 325.0,
+        "reviews" : [
+            {
+                "userId" : "ARYH0SIRKAZTF",
+                "profileName" : "Icefire",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2010-05-04T00:00:00.000+0000"),
+                "summary" : "Good player for metal...",
+                "text" : "I've owned this Bass for 9 years...and still like it. It's fast, comfortable, and clean enough to jam brutal metal jams...add Distortion, and you have a metal monster...just dial in the tone with some heavy strings...I'm using a .130 low E, and tuned down....This price Amazon advertises is less than I paid from a music shop....so, buy this Bass.., you won't be sorry...."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0007CR73Y",
+    "value" : {
+        "title" : "Tech 21 TAC SansAmp TRI-A.C.",
+        "reviews" : [
+            {
+                "userId" : "A3TBMAWIIHKHFN",
+                "profileName" : "Willie V. Hughes",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-07-18T00:00:00.000+0000"),
+                "summary" : "The best amp modeler in the world. Period.",
+                "text" : "I've tried many distortion boxes and amp modelers. The Tech 21 Sans Amp GT2, Pod 2.0, Line 6 and Boss floorboards, etc. The Tri-A.C. is the only box that sounds raw, warm, and real. Everything else just sounds so digital.This is not a pedal to use for metal distortions-- although you can get some healthy distortion, this pedal is more geared towards blues, classic rock, etc. I've been able to get some good Neil Young and AC/DC tones, but you're not going to get that Eddie Van Halen or Rob Zombie processed sound (if you want it).The ability to bring up your favorite three presets with an analog pedal is also very cool."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000KI7S2U",
+    "value" : {
+        "title" : "TKO 5-Piece Complete Junior Drum Set - Metallic Red",
+        "price" : 206.0,
+        "reviews" : [
+            {
+                "userId" : "ADOT9YBD8JVWW",
+                "profileName" : "Daniel D. Martin \"Vermin in My Home Hater\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(1),
+                "time" : ISODate("2010-03-30T00:00:00.000+0000"),
+                "summary" : "More of a Toy than an Instrument",
+                "text" : "Like a lot of these drum kits for kids this is more of a toy than an instrument. The hi-hat is basically unusable and drummers understand the importance of the hi-hat. With no real hi-hat or ride cymbal kids can't play a groove."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(1),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(1),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002E2NAE",
+    "value" : {
+        "title" : "Planet Waves Auto-Trim Tuning Machines, 6 In-Line setup, Gold",
+        "price" : 59.47,
+        "reviews" : [
+            {
+                "userId" : "AFJ06R4J3SZ8T",
+                "profileName" : "Tim Mackay",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-09-25T00:00:00.000+0000"),
+                "summary" : "Fast, precise, and reliable",
+                "text" : "These have worked as advertised for me. I've had them on two electric guitars - a 6-string for a few years, and recently equipped a 12-string with them.The locking feature makes string changes occur in minutes. The auto trim feature snips excess string cleanly and effortlessly. The 18:1 ratio makes accurate tuning quite easy. They're very solid-feeling. The guitars that they are installed on stay in tune longer than my other guitars.The plated portion of the finish appears deep, and looks like it will last a while. The flat black peg won't go with every guitar finish."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000CPYSWY",
+    "value" : {
+        "title" : "Pirastro Evah Pirazzi 4/4 Cello String Set - Medium Gauge",
+        "price" : 194.26,
+        "reviews" : [
+            {
+                "userId" : "A1MW4LYLC8Z6T0",
+                "profileName" : "ckarem",
+                "helpfulness" : "0/4",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-10-16T00:00:00.000+0000"),
+                "summary" : "Beatiful sounds",
+                "text" : "I loved the sweet and mellow sound of the strings...cumplieron 100% mis espectativas. Lograron destacar y darle personalidad a mi cello. Feliz y conforme con el producto."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002DV6N0",
+    "value" : {
+        "title" : "Denis Wick Extending Tube Mute for Trumpet",
+        "price" : 41.99,
+        "reviews" : [
+            {
+                "userId" : "A2LUSJCMJ9YEWJ",
+                "profileName" : "Alicia M. Steggerda",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-11-24T00:00:00.000+0000"),
+                "summary" : "Great Mute",
+                "text" : "This is my first mute and I am very glad I selected the Denis Wick. It has a very nice sound, and keeps my practice times quieter at the same time."
+            },
+            {
+                "userId" : "A2350RF19J17E5",
+                "profileName" : "Isaac Pascal",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-11-28T00:00:00.000+0000"),
+                "summary" : "Play like Miles : And Wick was quick to resolve problem!",
+                "text" : "I chose this mute because I read that I could sound like Miles Davis recording Kind of Blue or Blackbird. It really works. And you can vary the tone by adjusting the length of the extender tube protruding from the mute. I can also get a good muted wah-wah sound using my hand over the bell of the extender tube. My mute had a problem with the diameter of the extender tube, but Denis WIck quickly responded to my email and a new one is being delivered by the local distributor. Very nice service."
+            },
+            {
+                "userId" : "A1WLN732CV92O8",
+                "profileName" : "Mekasha",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-15T00:00:00.000+0000"),
+                "summary" : "Works",
+                "text" : "Perfect! It makes great music and does what it is intended to do. No concerns or issues of any kind."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(3),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(3)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002F7JAM",
+    "value" : {
+        "title" : "Remo Emperor Clear Drum Head - 16 Inch",
+        "price" : 12.34,
+        "reviews" : [
+            {
+                "userId" : "A1H10LSYDJW9W2",
+                "profileName" : "katarhol",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-23T00:00:00.000+0000"),
+                "summary" : "Replacement tom tom head",
+                "text" : "I bought this item as a backup for a head that has a hole in it---I haven't installed it. But I can say that it was well-packed for shipment, arrived in a fairly timely manner considering the Christmas season, and appears to be in pristine condition...undamaged mylar and a level rim."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002CZS4O",
+    "value" : {
+        "title" : "Daisy Rock Pixie Acoustic Guitar Starter Pack, Powder Pink",
+        "price" : 229.0,
+        "reviews" : [
+            {
+                "userId" : "A1F6C3BL68NA1I",
+                "profileName" : "Gary Glazer",
+                "helpfulness" : "7/7",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-07-25T00:00:00.000+0000"),
+                "summary" : "Patty Larkin should be proud!",
+                "text" : "Late winter 2006 I heard Bob Edwards interviewing Patty Larkin re: her La Guitara project. One of Patty's goals is to get more little girls playing guitar. I heard that and immediately thought of my cousin's 9 yo daughter Meganne. I sent Meganne the La Guitara CD & asked her if she'd like to learn to make that kind of music. Meganne is now the proud owner of a powder pink Pixie acoustic. The reduced girth of the neck is perfect for a girl's hand. Daisy Rock offers the Pixie alone or as part of a starter pack; I chose the latter option. My whole family is quite pleased with Daisy Rock Girl Guitars."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002E3GEQ",
+    "value" : {
+        "title" : "Selmer Tuning Slide and Cork Grease",
+        "price" : 2.99,
+        "reviews" : [
+            {
+                "userId" : "A2WPSFTKUFOE3N",
+                "profileName" : "T. Leonard \"TomCatSax\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-12-21T00:00:00.000+0000"),
+                "summary" : "Great Cork Grease Replacement!!!!",
+                "text" : "I have used this product for many years to grease the corks on my saxophones and clarinet. It works much better than any of the normal cork grease products you can purchase, as it does a better job of soaking into the cork to keep it moisturized. It only takes a couple of dabs of this on the cork...then simply rotate your mouthpiece around as you slide it on the neck to spread it to the entire cork surface. I thought this product was no longer available...until I saw this today! Whew...I'm back in business! Highly recommended product...based on more than 30 years of using it in the \"real world\"! :-)"
+            },
+            {
+                "userId" : "A1N1TH7JPCHI5Z",
+                "profileName" : "BflatClarinet",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-12-23T00:00:00.000+0000"),
+                "summary" : "Awesome",
+                "text" : "I've been using this on my clarinet ever since the tech at the store put it in with my new clarinet a few years ago. It works a lot better than the cork grease that comes in a stick. It lasts longer than the other kind as well, so there is fewer times that you have to re-apply it. I suppose the only downside is that I take off whatever is on the cork and joint before re-applying it so that there is not a lot of build up.Regardless I've used this on several different clarinets, including a bass clarinet when the metal neck was really stiff. It slid in perfectly after a few dabs, so it's good for more than just corks, although I suppose it's because this can also be used on brass instruments as well.I'm so glad that I found out where to buy more! I haven't been able to find this in store at all."
+            },
+            {
+                "userId" : "AL3G7RTXMGLDQ",
+                "profileName" : "E. Sikorski",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2012-01-03T00:00:00.000+0000"),
+                "summary" : "Thick and hard to squeeze out",
+                "text" : "While the product works quite well, it has a couple drawbacks. It is very thick which makes it quite difficult to squeeze out of the tube. It takes a lot of effort to get a little bit of grease out. More importantly, it is difficult to clean up as it smears on the instrument when you wipe off any excess. It does do a good job coating slides, particularly the tuning slide. I have used valve oil to thin the grease on my first and third valve slides. Personally, I do prefer using Hetman products as they work much better, are easier to use, and last just as long."
+            },
+            {
+                "userId" : "A2WL2SOWO2ACGS",
+                "profileName" : "67 or Tim or Jim or maybe Selmer I think its ...",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2012-01-05T00:00:00.000+0000"),
+                "summary" : "selmer 67",
+                "text" : "Selmer is great because. It is a pink,soft,and smooth grease that you can put in your trumpet slides. you can buy Selmer at: any 3 of these stores but there is so many of them I will not share them all1. Joe riffs Music Middiletown CT2. apple music3. amozon.com"
+            },
+            {
+                "userId" : "A3NLKCHHS123MJ",
+                "profileName" : "Wallace",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(3),
+                "time" : ISODate("2012-06-07T00:00:00.000+0000"),
+                "summary" : "Decent but not amazing",
+                "text" : "Works well but you need to water it down with valve oil. My biggest problem is it gets all over everything. If you take it on a plane the pressure can make the bottle split open at the seams. This happened to me once. Total mess."
+            },
+            {
+                "userId" : "A3V0536FRUSADR",
+                "profileName" : "Mikey D.",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(2),
+                "time" : ISODate("2011-02-12T00:00:00.000+0000"),
+                "summary" : "Tough to Clean Up",
+                "text" : "I purchased this product to lubricate the tuning slides on my trumpet and flugelhorn. I haven't used this particular Selmer product for years. The company must have changed the formula because clean up is much more of a chore than I remember. The tuning slides move easily, but it was very difficult and took a lot of work to remove the excess grease from the finish of the horns. Can't say I'll use it again."
+            },
+            {
+                "userId" : "A1Z770R1S0VMX7",
+                "profileName" : "Jon",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(4),
+                "time" : ISODate("2011-02-24T00:00:00.000+0000"),
+                "summary" : "One of my favorites",
+                "text" : "I really like this slide grease. On my trumpet, I mostly use it on the main tuning slide because I like how strong but smooth it keeps the slide. Clean up is kind of a hassle but I think it is worth it."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 3.857142857142857,
+            "reviewsCount" : NumberInt(7),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(1),
+                "3" : NumberInt(2),
+                "4" : NumberInt(1),
+                "5" : NumberInt(3)
+            }
+        }
+    }
+}
+{
+    "_id" : "B00005NLI1",
+    "value" : {
+        "title" : "PlayR Jukebox XXL",
+        "reviews" : [
+            {
+                "userId" : "unknown",
+                "profileName" : "unknown",
+                "helpfulness" : "0/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2001-10-18T00:00:00.000+0000"),
+                "summary" : "Awesome program!",
+                "text" : "This product roxxx! I was surprised at all of the stuff that this software can do. Much more than I expected. I used it for parties and to DJ an event. It is fun to control the music with all the buttons. The video is awesome too. I have used similar types of software products and this one blows them away! You do though have to know how to turn on a computer, but I did not find it hard to use at all."
+            },
+            {
+                "userId" : "unknown",
+                "profileName" : "unknown",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(1),
+                "time" : ISODate("2001-09-27T00:00:00.000+0000"),
+                "summary" : "Looks Good, But don't be too sure.......",
+                "text" : "The Magix Player XXL in my opinion is probably one of the hardest programs I have ever used. I am computer literate, have worked in radio and have used music/sound editing software before. However I am new to the whole CD burning thing. I have read the 160 Page manual cover to cover TWICE, and I still can't get the music to mix properly, or figure out what I have to do to burn what I have mixed (which took me a whole saturday) to a CD. If you are a PRO with Mp3's this may be for you. If you are a rookie, like me. STAY AWAY. I'm just looking for something that I can fade the ends of songs that I have downloaded. This program doesn't recognize songs you may have saved to your hard disk from your own CD's. (I don't think, at least I can't figure it out.) This is WAY too much for me, way too confusing. A LOT of features that the &quot;normal&quot; music fan would never need or be able to figure out."
+            },
+            {
+                "userId" : "A3AF7WP3QEBKRX",
+                "profileName" : "\"sun_flower73\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2001-10-18T00:00:00.000+0000"),
+                "summary" : "Great Product",
+                "text" : "I had to write a review because I use it to play back music. It works and I have no complaints. My daughter has emailed a musical slide show to my sister in Utah and she thinks it's just great. We loaded in some family pictures from our recent get together and added the theme music from some CDs we had and emailed it over...so she gets to watch the family slide show we compiled. It's really wonderful. I'm still learning a little at a time on how to use all the features, but I'm getting there. It's definitely fun and interesting."
+            },
+            {
+                "userId" : "A10GPXCJTZZGFU",
+                "profileName" : "Denise",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2001-10-25T00:00:00.000+0000"),
+                "summary" : "COOL LIVE remixing",
+                "text" : "I use playR jukebox XXL to play back my list of songs, like one would on their CD players, except with XXL I can add video playback or if friends are over I could hook up my digital video camera and have live input of my guests on the monitor, which could be really fun especially when you add the real-time special effects. For example I use the ghost like effect to turn everyone passing or dancing in front of the camera into ghostlike images and change the back ground room color to bright fusia. If it come down to it and someone feels like a being a real life DJ they could get on the PC and remix with cross fades and real-time effects like distortion/reverb/echo/compression. It's fun. Difficulty level isn't bad at all, if you understand the concept of remixing samples in songs. If you enjoy music and want to add a little something special to your entertainment system...this is it. :)"
+            },
+            {
+                "userId" : "A3H2U1HZBHQPQ2",
+                "profileName" : "Shawn",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2001-11-06T00:00:00.000+0000"),
+                "summary" : "Great fun",
+                "text" : "I read an article in some magazine that jukebox or dj programs like this are getting huge. I'm a straight up club kid so I know whats up with the whole rave lifestyle and I agree. Trance and electronic music in general are booming right now and I can actually spin a mix on this program not to mention throw up some wicked videos and effects. These people know what they're doing. This is candy for the kids and clubbers!!!"
+            },
+            {
+                "userId" : "A1BYG2G4PV5UNJ",
+                "profileName" : "Mark",
+                "helpfulness" : "2/3",
+                "score" : NumberInt(1),
+                "time" : ISODate("2002-03-07T00:00:00.000+0000"),
+                "summary" : "Dont let everyone's review fool you",
+                "text" : "I purchasedPlayR jukebox XXL because I liked the idea of being able to mix my own songs. I guess that was just all bells and whistles because once I downloaded the program I was never able to get my songs from my hard drive to the playlist. I tried to check out the remix section of the program and it kept shutting down the system and told me that the program was not responding. Also, once you download the program it tells you to change the resolution of your system. I dont want to have to change my computer resolution everytime I plan on running this program, it messes up all of my desktop settings. The program is just too confusing and I plan to go back to my Musicmatch jukebox program which I have NEVER had a single problem with. I guess I was just fooled by thinking I could get something extra for the same amount of money. I guess that goes to show you that things are not as good as they always seem and if you have something that you are satisfied with you had better stick with it. As a final note, Musicmatch jukebox AUTOMATICALLY transfers my recent and new music files to run on its playlist."
+            },
+            {
+                "userId" : "unknown",
+                "profileName" : "unknown",
+                "helpfulness" : "2/3",
+                "score" : NumberInt(1),
+                "time" : ISODate("2002-04-19T00:00:00.000+0000"),
+                "summary" : "Katie",
+                "text" : "I have to say, that this product is not all that it is said to be. You can't download songs, it is impossible to do. The company told me &quot;well, the sites must no longer exist&quot; I attempted to download many different songs, with NO success. It is difficult to use as a player, as you can never get your songs into the play list. Then my software totally crashed my system, I uninstalled, and reinstalled and no matter what I do it gives me an error, and then closes the program. I have uninstalled it, and put it in the box. END OF STORY."
+            },
+            {
+                "userId" : "A234ZE50C5IMSL",
+                "profileName" : "\"kirtbrock91\"",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2001-10-18T00:00:00.000+0000"),
+                "summary" : "Awesome program!",
+                "text" : "This product roxxx! I was surprised at all of the stuff that this software can do. Much more than I expected. I used it for parties and to DJ an event. It is fun to control the music with all the buttons. The video is awesome too. I have used similar types of software products and this one blows them away! You do though have to know how to turn on a computer, but I did not find it hard to use at all."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 3.375,
+            "reviewsCount" : NumberInt(8),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(3),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(4)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0006GRRUO",
+    "value" : {
+        "title" : "GATOR Padded Alto Saxophone Gig Bag",
+        "reviews" : [
+            {
+                "userId" : "A1Z2F4OCF4R41Y",
+                "profileName" : "Darwin Kibby",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-07-08T00:00:00.000+0000"),
+                "summary" : "GATOR Alto Saxaphone Bag",
+                "text" : "I bought this for my 11 year old to tote the instrument to school. He loves it. It is light-weight and durable enough to protect the instrument. It has pocket areas to store extra reeds and cleaning implements. It provides a very easy and convenient way for him to carry the Sax to and from school."
+            },
+            {
+                "userId" : "A1634H1Y4BKVVD",
+                "profileName" : "Saxophone82",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(3),
+                "time" : ISODate("2011-07-12T00:00:00.000+0000"),
+                "summary" : "This case is OK",
+                "text" : "I think that this case was somewhat small after first getting it out. The curve for the bell of the saxophone is in the wrong place. Other than it being snug (and I'm sure it will stretch a bit) a great case."
+            },
+            {
+                "userId" : "A3LJBIX3GE61PP",
+                "profileName" : "Denise Kubiak",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-05-14T00:00:00.000+0000"),
+                "summary" : "Love the bag",
+                "text" : "I live in an urban environment where I often ride my bike everywhere. This was a great bag for that purpose. It fits like a backpack and holds the saxapone snugly.I am not so sure it is durable enough to travel on an airplane with it though. Not too much padding."
+            },
+            {
+                "userId" : "AEFDG44Q44BSI",
+                "profileName" : "J Seiler",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(4),
+                "time" : ISODate("2010-12-30T00:00:00.000+0000"),
+                "summary" : "Gator Padded Alto bag",
+                "text" : "Gift for my son for Christmas, as one reviewer said it does at first appear too small but the design is for compactness as opposed to my son carrying around the pice of luggage hard case. It did take a little work getting the Sax in the first time but the zipper did close all the way and it did not appear to be stressed, we have left in in the bag over the holidays to allow the bag to stretch and conform to the horn. The padding is good and it has an outer zippered pouch for accessories and misc items. I will try and update this review once school starts back up and he has given it a workout and a few runs back and forth to school on the bus...."
+            },
+            {
+                "userId" : "A3P8GK9RYMRQ2L",
+                "profileName" : "D. Shaw",
+                "helpfulness" : "6/7",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-11-08T00:00:00.000+0000"),
+                "summary" : "Good Case",
+                "text" : "I got this case for my daughter who is in grade school. I was worried about it being firm enough to protect the instrument, but is is great. The strap works well in being able to carry it with her other bags. Nice room in the case and pockets on the side. Over all a great buy."
+            },
+            {
+                "userId" : "A3N06YBF7DTXHB",
+                "profileName" : "Peter Lacey",
+                "helpfulness" : "4/4",
+                "score" : NumberInt(3),
+                "time" : ISODate("2010-12-08T00:00:00.000+0000"),
+                "summary" : "Well padded, but too small",
+                "text" : "The case seems to be well constructed, but my saxophone didn't fit. It is a 30 year old Bundy and the bell came up a bit higher that the case had room for. Also, the case was too short to leave the \"fuzzy bopper\" in."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(4),
+            "reviewsCount" : NumberInt(6),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(2),
+                "4" : NumberInt(2),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000A6GWBU",
+    "value" : {
+        "title" : "Casio WK3200AD 76 Full-Size Key Performance Keyboard with Power Supply",
+        "reviews" : [
+            {
+                "userId" : "A242U1IY6GI1WA",
+                "profileName" : "K. Mulvihill \"Keyboard Player\"",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-02-26T00:00:00.000+0000"),
+                "summary" : "Excellent All-Around Music Station",
+                "text" : "This is an outstanding keyboard that I use for all my musical needs. The MIDI is pretty good on my Mac program (Garageband) and the sounds are great and very realistic as opposed to others around the price. The volume pumps out a good amount of sound but an amp is needed to play with multiple people for that much volume. My only problem is that Amazon doesn't have a very good deal. Musician's Friend.com has it for about $70 cheaper last time I checked. It would still be worth Amazon's price, however due to it's great function. Another alternative is the smaller clone of WK-3200: CTK-900 which is a 61 key replica."
+            },
+            {
+                "userId" : "A3AMDSBCBT3I5U",
+                "profileName" : "Kimberly Cabello",
+                "helpfulness" : "16/17",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-11-03T00:00:00.000+0000"),
+                "summary" : "Well worth the money!",
+                "text" : "I purchased this keyboard for my six year old son who is a Suzuki piano student of almost two years now. Although we have a piano (an antique), he showed interest in playing keyboard as well. Having owned a Korg in the past, I was partial to Korg, but we tested several Korgs, Casios, and Yamahas to compare. This WK3200AD was a definite winner with us. Although the comparable Yamaha and Korg had a bit more volume (greater speaker wattage), this Casio had them beat with its sound quality, numerous tones, accompaniment, and effects. The 76 keys allow for one to perform Classical pieces, which is a big plus in our house. Although my son is too young for the MIDI, mixer function, and drawboard, I am sure this keyboard will still be with him when he is older. Fantastic buy!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002II8FO",
+    "value" : {
+        "title" : "Ludwig Logo Resonance Bass Drum Head with Port Black 22 Inch",
+        "reviews" : [
+            {
+                "userId" : "A1QBSALLY9OE91",
+                "profileName" : "S. Anderson",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-02-05T00:00:00.000+0000"),
+                "summary" : "Son was jazzed!",
+                "text" : "My 16 year old picked this bass drum head off Amazon for Christmas. Sure fire way to get the perfect gift! He loves it!"
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0006UGF0S",
+    "value" : {
+        "title" : "Sabian AA 16\" El Sabor Crash Cymbal (Brilliant Finish)",
+        "price" : 189.0,
+        "reviews" : [
+            {
+                "userId" : "A16SJTZ4QJMH7Z",
+                "profileName" : "Davids \"Davids\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-02-06T00:00:00.000+0000"),
+                "summary" : "a brilliant sound",
+                "text" : "I love this cymbal. I've had it for over a year now and works great. I was looking for a brilliant cymbal and this one provides that sound. The bell or ride section sounds ok, but cannot be compared with a ride cymbal (understandable). I think it's one of the best cymbals suited for timbales there is. I took a risk and bought this cymbal on amazon without seeing it or playing it first. Thankfully I liked it and everything worked out fine for me, but I highly recommend people to shop around and try it before taking those risks, especially for a pricy item like this one."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B0002D05CS",
+    "value" : {
+        "title" : "GHS Strings Electric Guitar Boomer Set (Light Nickel Steel)",
+        "price" : 6.09,
+        "reviews" : [
+            {
+                "userId" : "A91PW87FR65XH",
+                "profileName" : "R. J. Province \"Blade\"",
+                "helpfulness" : "0/3",
+                "score" : NumberInt(4),
+                "time" : ISODate("2011-01-23T00:00:00.000+0000"),
+                "summary" : "Not What I expected...",
+                "text" : "They have this twanging, rough sound which I do not like, so I trashed them and went back to D'Addario. These are good for heavy metal, but I play a mix of songs that do not always have distortion - without the distortion they still sound rough. I gave them 4 stars, because the E (1st) sting broke on me while putting them on, while the individual string packing is nice - helps to keep them in order when changing them."
+            },
+            {
+                "userId" : "AB1JVZE7XXYFD",
+                "profileName" : "Mikheil",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(2),
+                "time" : ISODate("2012-09-30T00:00:00.000+0000"),
+                "summary" : "Wrong Image",
+                "text" : "Be carefull, actually wrong image is shown: image is from sub-zero guitar boomers, but if you order, you receive Electric Guitar Boomer Set (as written). So, if you wonna to buy sub-zeros, this place is not for you."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(3),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(1),
+                "3" : NumberInt(0),
+                "4" : NumberInt(1),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B00005Q5XD",
+    "value" : {
+        "title" : "PC Music Tool Kit",
+        "reviews" : [
+            {
+                "userId" : "unknown",
+                "profileName" : "unknown",
+                "helpfulness" : "2/3",
+                "score" : NumberInt(1),
+                "time" : ISODate("2004-06-09T00:00:00.000+0000"),
+                "summary" : "Cannot install this on Windows XP",
+                "text" : "If you use Windows XP, you should avoid this product. The installer reports that Windows 95 is required and aborts. If there's a way to make this work on XP, the Magix web site offers no help at all, and neither do the UseNet archives I've searched. The date on the CD is 1999; so most likely support is no longer available anyway.Software that won't let you install on an unsupported platform is scandalous, in my professional opinion. You pay for it, you should be able to use it - even if that means waiving support. Hopefully, newer products are limited only by the terms of their end-user licensing agreements.On the other hand, the bundled MIDI cable alone, if it works with other software, will have justified the low price I paid. :-) An identical cable at the local music store would have cost me a lot more."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(1),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(1),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(0)
+            }
+        }
+    }
+}
+{
+    "_id" : "B00065PYOQ",
+    "value" : {
+        "title" : "Hal Leonard Rubank Elementary Method Trombone Baritone",
+        "price" : 5.95,
+        "reviews" : [
+            {
+                "userId" : "A2QVT3D19AQQWM",
+                "profileName" : "wolfyg",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-08-22T00:00:00.000+0000"),
+                "summary" : "Great for beginners",
+                "text" : "I had started learning a while before getting this product but needed something that had examples of exercises that helped to drill the fundamentals. I was very satisfied and would highly recommend this book to people of any level."
+            },
+            {
+                "userId" : "AC5P4YOSZIEKV",
+                "profileName" : "Peg \"Oklahoma Explorer\"",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-07T00:00:00.000+0000"),
+                "summary" : "Rubank Elementary Method",
+                "text" : "The Rubank Elementary Method Series has been around for a long time. It is not a good series for elementary school students as it moves too rapidly, but is perfect for grade 8 through high school. I choose it to learn trombone as I already can read music and just needed it to learn the positions and keys on trombone."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(2),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(2)
+            }
+        }
+    }
+}
+{
+    "_id" : "B000067DJX",
+    "value" : {
+        "title" : "Audio Technica ATR10BL Handheld Unidirectional Dynamic Microphone",
+        "reviews" : [
+            {
+                "userId" : "A1AXTY1G1C409O",
+                "profileName" : "Manix",
+                "helpfulness" : "25/27",
+                "score" : NumberInt(5),
+                "time" : ISODate("2003-06-03T00:00:00.000+0000"),
+                "summary" : "Great for karaoke singing",
+                "text" : "I bought this to try karaoke singing on my PC. The sound card on my computer allows me to mix midi/kar files playing on my computer with the input from the microphone and record them. The sound quality from this mic exceeded my expectations. It was far superior to the sound output from the kind of microphones that are meant for voice chat over the internet. I am no professional singer and this mic was well in keeping with my budget."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : NumberInt(5),
+            "reviewsCount" : NumberInt(1),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(0),
+                "2" : NumberInt(0),
+                "3" : NumberInt(0),
+                "4" : NumberInt(0),
+                "5" : NumberInt(1)
+            }
+        }
+    }
+}
+{
+    "_id" : "B00001W0DT",
+    "value" : {
+        "title" : "Sony ECMMS907 Digital Recording Microphone",
+        "price" : 67.86,
+        "reviews" : [
+            {
+                "userId" : "A1KC44JCYJFBVH",
+                "profileName" : "Seshadri G",
+                "helpfulness" : "5/10",
+                "score" : NumberInt(1),
+                "time" : ISODate("2006-11-22T00:00:00.000+0000"),
+                "summary" : "does this work with desktop pcs?",
+                "text" : "I purchased this and shipped to US and finally had it delivered to India in gurgaon. Iam a musician and I desperately wanted a good microphone. I record my violin pieces on my laptop and used an ordinary computer mike for this. But I wanted a more sensitive recording and couldnt believe the dismal output of this mike. The gain was lower than the ordinary mike, it doesnt work at all without the battery, but the sound is tiny and totally unsatisfactory. Unfortunately sony doesnt have good service centres who'll entertain me in delhi and I consider 70 bucks down the drain. :&lt;..."
+            },
+            {
+                "userId" : "A3QSESHT337YS8",
+                "profileName" : "Hillbilly \"Metropolitan Bubba\"",
+                "helpfulness" : "1/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-05-26T00:00:00.000+0000"),
+                "summary" : "Sony mic",
+                "text" : "I recv'd the mic in a reasonable amt of time. It is easy to use. I think it performs as expected."
+            },
+            {
+                "userId" : "A9XUKNQPAST2F",
+                "profileName" : "Ronald J. Vieira \"TRUMPETMAN\"",
+                "helpfulness" : "10/17",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-03-08T00:00:00.000+0000"),
+                "summary" : "Sony digital recording microphne ECMMS907",
+                "text" : "ThIS LITTLE NMICROPHONE IS WITHOUT A DOUBT THE VERY VERY BEST THING OUT THERE!!!i HAVE BEEN A PROFESSIONAL MUSICIAN FOR 50 YEARS NOW AND HAVE USED SOME OF THE TOP NAME BRANDS. nOTHING COMPARES.cONGRATS SONY!! YOU HAVE COME UP WITH ANOTHER WINNER."
+            },
+            {
+                "userId" : "A2T5QTDXEQ6692",
+                "profileName" : "Phillip Cuchetti",
+                "helpfulness" : "2/4",
+                "score" : NumberInt(4),
+                "time" : ISODate("2007-03-13T00:00:00.000+0000"),
+                "summary" : "nice but",
+                "text" : "This is a nice little mic but I am not sure a regular mic would be even better.I am happy with the mic though."
+            },
+            {
+                "userId" : "A2YMB7H2SGN3C4",
+                "profileName" : "Jeremy S. Harris",
+                "helpfulness" : "1/2",
+                "score" : NumberInt(2),
+                "time" : ISODate("2010-10-25T00:00:00.000+0000"),
+                "summary" : "terrible fidelity, sensitivity",
+                "text" : "bought this to use with my minidisc recorder from like 8 years ago. Anyway, it was not a good mike, low quality and way over priced. Just buy a shure SM57/SM58 and 1/4 to 1/8 adapter."
+            },
+            {
+                "userId" : "A25BPBIGWKR7R9",
+                "profileName" : "K. Turner \"croon4you\"",
+                "helpfulness" : "3/5",
+                "score" : NumberInt(3),
+                "time" : ISODate("2008-01-02T00:00:00.000+0000"),
+                "summary" : "Expected more",
+                "text" : "Expecter more, that's it. I am a 30-year fan of SONY products but the application of using this mike varies from good to horrible depending on the source of recording. If you hook it up to a mini-disc recorder it'll shine for you for 24-7 but anything else is a let down. There's nothing bad to say about the seller, he did his part."
+            },
+            {
+                "userId" : "A1M6C6OMLLSGPY",
+                "profileName" : "Anthony Rose",
+                "helpfulness" : "7/11",
+                "score" : NumberInt(5),
+                "time" : ISODate("2005-10-15T00:00:00.000+0000"),
+                "summary" : "FANTASTIC",
+                "text" : "This is a really good microphone! A friend of mine recommended it, and I'm so glad I made the purchase. Seeing is believing, so try it! If it could be just a little bit smaller it would be perfect, but it comes with a neat little stand that will let you swivel the microphone in any possible direction."
+            },
+            {
+                "userId" : "A1P9LBS9JEIJC6",
+                "profileName" : "E. Miguel \"Ed\"",
+                "helpfulness" : "7/7",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-01-27T00:00:00.000+0000"),
+                "summary" : "great little stereo microphone",
+                "text" : "For decent portable recording this stereo directional microphone cannot be beat. It has two directionality settings of 90 and 120 degrees. The single AA battery life is practically forever as long as you remember to turn it off. It works best close up however recoding concerts from the audience is also good if you watch your levels and adjust them accordingly. I get many compliments about my recordings. I use it with a Sharp MD recorder and also bought one for a Roland Micro Digital recorder. It comes with a holder/stand which also can attach to a floor microphone stand if you find the right thread which I never have. That might be the only negative. It also comes with a voice/wind cover to muffle air noise. For a little less than a $100 I think it is a good value."
+            },
+            {
+                "userId" : "A2X85K6IXO0LX5",
+                "profileName" : "Don Burke",
+                "helpfulness" : "7/7",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-05-08T00:00:00.000+0000"),
+                "summary" : "Excellent Value!",
+                "text" : "I'm a professional piano technician and part-time musician. I use this mic (plugged into a Boss Micro BR recorder) for recording band rehearsals and gigs. It has a very nice clear, \"transparent\" sound quality and handles high volume levels with no problem."
+            },
+            {
+                "userId" : "A2JJTFCTBED4AE",
+                "profileName" : "S. Kranz",
+                "helpfulness" : "17/20",
+                "score" : NumberInt(4),
+                "time" : ISODate("2005-01-06T00:00:00.000+0000"),
+                "summary" : "Good recording results; holder doesn't fit standard stands",
+                "text" : "I like the results I have gotten with this microphone, both in a concert setting and recording myself and friends playing music with my minidisc recorder.My only reason for giving this mic 4 out of 5 stars is that the thread size on the holder that comes with it does not fit the threads of any microphone stand I am aware of. Also, the body of the mic has a somewhat oblong shape instead of being perfectly round. As such, you'll have a hard time finding any standard mic holder to attach this microphone to a stand.The solution is to go to Radio Shack and get their spring-clip style microphone holder. I think it cost me about $6, if that. It has standard threads to attach to a stand, and the sides of the holder have foam padding where they contact the mic, to give a good grip.Of course, the holder is designed to act as its own \"stand\" if you want to set it on a table or desktop while recording. However, the mic can easily fall over if the table/desk is bumped or if the cord gets tugged inadvertently.Otherwise, the mic has a nice, solid feel and appears to be well-constructed."
+            },
+            {
+                "userId" : "AGMFK8C85UF7Q",
+                "profileName" : "Matthew Bullis",
+                "helpfulness" : "13/14",
+                "score" : NumberInt(4),
+                "time" : ISODate("2006-11-07T00:00:00.000+0000"),
+                "summary" : "Wonderful item.",
+                "text" : "This has been a wonderful microphone for me. I heard it as the microphone used on the cd The Kitchen Tapes by Lori McKenna. I asked other fans what microphone she used, because I loved the stereo sound she got. They told me this was the microphone she used, and I bought it. I use it with my minidisc recorder when I need to record my live performances. I've found that the best way to use this is to set it on the floor between my feet, using a low profile microphone stand from Musician's Friend. Low profile is the name they give it. While you're ordering, get their spring clip microphone holder to hold this microphone. For my best results, extend the low profile stand all the way, clip in the microphone, and face it away from you. Now point it straight up, and you'll get a nice recording of your singing and playing, while capturing the ambience of the room. This setup doesn't overpower the microphone, thus it doesn't engage the limiter to chop down the sound. If you use the setup I've detailed, you'll get a nice recording, and if you need to hear how this sounds, go to www.CDBaby.com, type in Lori McKenna, and listen to the samples of the Kitchen tapes in high-fi, and you'll hear how good this microphone sounds."
+            },
+            {
+                "userId" : "A3PTWJ0MRJCWB3",
+                "profileName" : "McFaddus",
+                "helpfulness" : "22/25",
+                "score" : NumberInt(5),
+                "time" : ISODate("2003-07-07T00:00:00.000+0000"),
+                "summary" : "This mic is great for the price",
+                "text" : "If you look around you'll see that this mic is one of the most popular for recording concerts, lectures, etc. I found it to be clear when recording, although there needed to be moderate volume. There is no sensitivity switch. It does have the 90-120 degree switch, so you can increase the scope of recording. The unit is built well, and comes apart easily to allow replacement of the battery, which should last a long time. When using this microphone, make sure if the volume level reaching you is not high enough, position it better, like one other reviewer said, or spend the extra money and get a zoom microphone. Also an mp3 player that allows digital recording comes in really handy."
+            },
+            {
+                "userId" : "A3DSNKDGSGWTZX",
+                "profileName" : "J. Civiletti",
+                "helpfulness" : "20/22",
+                "score" : NumberInt(3),
+                "time" : ISODate("2007-01-27T00:00:00.000+0000"),
+                "summary" : "Sounds ok...",
+                "text" : "This works well with a sony digital camcorder, and it is the same product as a similar looking mic marketed for camcorders specifically. This works poorly with a computer mic input. I Compared a cheap (cheaper than this mic) XLR vocal mic with this sony one. I connected both to a USB audio interface (mbox 2/protools le) and the vocal mic outperforms the sony mic by a significantly noticeable degree for instrumental recording. If you're not using this with a minidisc recorder, spring for a usb/firewire AD converter interface for a computer with an xlr mic instead of a minidisc with this mic."
+            },
+            {
+                "userId" : "AID5KRZFJZ5NJ",
+                "profileName" : "George Istvan",
+                "helpfulness" : "27/29",
+                "score" : NumberInt(4),
+                "time" : ISODate("2005-09-23T00:00:00.000+0000"),
+                "summary" : "Piano Recording using the Sony ECMMS907 digital stereo mike.",
+                "text" : "I purchased this microphone to record piano playing in my living room via the Griffin iMic to my Mac iBook using the software \"WireTap Pro\" version 1.11. I have mounted the Mike on the side of my grand piano, where the wall curves. I have made very good recordings, and I am happy with the unit and it's price. I didn't find the recordings to be as good when I attempted to record from some distance away from the piano. Recording from close up and adjusting the sensitivity in the software to avoid distortion seems to be the best way to accomplish my purpose. The unit seems to be a cost-effective solution for my kind of use. I have given it a 4/5 rating although I purchased it with little knowledge of the field overall, and I am not able to make any comparisons."
+            },
+            {
+                "userId" : "A2CAMRDWZW9XGF",
+                "profileName" : "Rinaldi Wibowo",
+                "helpfulness" : "43/47",
+                "score" : NumberInt(5),
+                "time" : ISODate("2002-12-26T00:00:00.000+0000"),
+                "summary" : "Simple setup - excellent price point for recordings",
+                "text" : "I use the MS-MS907 microphone on a weekly basis. My main use of this microphone is to record lectures and it does a good job of it. Of course microphone placement is the key to a good recording but the MS907 provides a good pickup at this price point. It operates on a single AA battery and is highly efficient with energy consumption. Another feature I like about this microphone is that it provides two pickup pattern (90degrees for an individual speaker and 120degrees to accomodate a chorus).I would recommend investing in either a minidisc recorder or a MP3 recorder."
+            },
+            {
+                "userId" : "A17BUUBOU0598B",
+                "profileName" : "Mark \"Technology, Music and Movies\"",
+                "helpfulness" : "85/93",
+                "score" : NumberInt(4),
+                "time" : ISODate("2004-06-01T00:00:00.000+0000"),
+                "summary" : "Affordable Digital Recording. GREAT VALUE!!!",
+                "text" : "The other reviewers wrote some great info about this Microphone. Some drawbacks are the relatively bulkyness of this unit as compared to others.The sound quality is sufficiently clear when recording, but is not sensitive enough to satisfy the most demanding users such as musicians or professional reporters. As the other reviewers have said, you need a relatively loud source as there is no sensitivity switch or zoom feature. It does have the 90-120 degree switch, so you can toggle the range depending on what you are recording.This microphone is very compatible with many different devices. MD is the best though.Here's one MD player recorder that I know has the microphone jack and works great with this microphone:'Sony MZ-NF810CK Net MD MiniDisc Recorder with Car Kit'However, don't be fooled. Not every MD player has the appropriate Mic Jack. Double Check the technical documentation to make sure. Units that definitely do not have it are:'Sony MZ-NE410 High Speed Net MD Walkman Recorder'Notice the deceptive &quot;Recorder&quot; moniker in the product name. Don't be fooled! Very few MD &quot;recorders&quot; actually record with a microphone!Not sure about these:'Sony MZ-NF610 High Speed Net MD Walkman Recorder''Sony MZ-N510CK NetMD Walkman/Recorder with Car Kit''Sony MZ-N505 Net MD Walkman Player/Recorder'Do your research before purchasing any MD player. All in all, this is a good value and pretty good quality for a digital microphone."
+            },
+            {
+                "userId" : "A35GOROMH8KE22",
+                "profileName" : "Chug Munechow \"CHug\"",
+                "helpfulness" : "72/76",
+                "score" : NumberInt(4),
+                "time" : ISODate("2005-03-01T00:00:00.000+0000"),
+                "summary" : "Does Not Work With Computer Inputs",
+                "text" : "I have used the ECMMS907 to fill about 150 mini discs since I bought it three years ago. It runs lovingly on one AA battery (unlike it's watch-battery-dependent predecessor) and allows for two polor patterns 180 and 90 degrees. The casing of the unit is rugged. It includes wind screen, travel pouch, stand clip, and four foot cloth encased cable. I have been able to record everything from street musicians to Dave Bruebeck concerts.In pro audio it isn't considerd cool to like Sony gear as it often uses digital tricks to achieve a bogus sense of higher fidelity, but Sony electronics are bulletproof and work exactly as designed until you lose them or back them over with your car. That said...Lots of people I have spoken with purchased this microphone thinking they could jack into the 1/8\" input on thier laptop computer and get desirable results. This might work if your microphone is inches away from a blaring guitar amp, but won't do well with amient recordings or speaking as the output gain is far too low. Most people are not happy in this situation.Overall, worth every penny. Perhaps there is a modification out there to improve the output gain."
+            },
+            {
+                "userId" : "AC3VEZ0L2XJEL",
+                "profileName" : "Larry",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(1),
+                "time" : ISODate("2012-10-23T00:00:00.000+0000"),
+                "summary" : "Bad when used as a microphone for a computer",
+                "text" : "I bought this to use as a computer microphone for Skype and to have a mute switch in case I have to sneeze.The biggest downside to this thing is it doesn't pick up sound very well. I have to hold it up to my mouth to be sure people can hear me. I've had better $10 microphones from radio shack that picked up light background sounds coming from my TV.A much lesser secondary problem is it requires an AA battery."
+            },
+            {
+                "userId" : "A3V0NI4XHZTI8N",
+                "profileName" : "Kirk R. Anderson",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(4),
+                "time" : ISODate("2013-01-19T00:00:00.000+0000"),
+                "summary" : "'digital'? really?",
+                "text" : "I've been more than satisfied with this microphone and had some pretty surprising results using it. Have to quibble though with the word 'digital' in the description. Yeah, you can use it with digital devices by plugging it into the ANALOG input. There is nothing digital about this microphone and that's just fine with me. Trying to sell something by calling it 'digital' is so nineties: they could get the hipsters' attention by calling it 'analog' instead... and they'd be telling the truth."
+            },
+            {
+                "userId" : "AISR09A7Y9KF4",
+                "profileName" : "Sir Roberts",
+                "helpfulness" : "0/0",
+                "score" : NumberInt(5),
+                "time" : ISODate("2013-01-30T00:00:00.000+0000"),
+                "summary" : "Great sound recording for the pric e",
+                "text" : "You can't beat the sound quality for the price. I've used this mic for recording v.o. for film and also lyric tracks for music. For the money you can't beat the quailty"
+            },
+            {
+                "userId" : "A22ZZ1F9LB2HDF",
+                "profileName" : "K. Ounniyom \"jicca\"",
+                "helpfulness" : "2/3",
+                "score" : NumberInt(4),
+                "time" : ISODate("2007-01-09T00:00:00.000+0000"),
+                "summary" : "Good quality, price, and styling.",
+                "text" : "Product performed well. Sound quality is good to excellent. It picks up foreground and background sounds well. Great price for Sony product."
+            },
+            {
+                "userId" : "A2N4YS4JLV9OUK",
+                "profileName" : "Ross G. Pederson",
+                "helpfulness" : "4/6",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-01-09T00:00:00.000+0000"),
+                "summary" : "Very Satisfied",
+                "text" : "This is the best sounding microphone for the price. I think I paid around $60 for it. I am a professional drummer, and use it a lot for recording live performances and rehearsals. Beautiful sounding mic, very natural quality."
+            },
+            {
+                "userId" : "A28525P0S5ZVJ3",
+                "profileName" : "Edison \"hightech lover\"",
+                "helpfulness" : "15/22",
+                "score" : NumberInt(5),
+                "time" : ISODate("2004-12-09T00:00:00.000+0000"),
+                "summary" : "Great microphone for instrument recording",
+                "text" : "I brought this microphone to record violin playing. The result was amazingly well. I did little modification to the microphone, by re-wiring it from stero to XLR. Using two of this kind of micropones, recording on both MR-8 8 track digital recorder and US-224 Tascam digital recorder, I could make CD at professional quality. Sony does make a professional microphone with similar technology. The difference between that one and this one is the connector. For this consumer product, they purposely made it not XLR. The simlar microphone with XLR connector sold over $200 each."
+            },
+            {
+                "userId" : "A3GI590E91VG4P",
+                "profileName" : "BruceG \"Bajatooter\"",
+                "helpfulness" : "3/4",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-07-19T00:00:00.000+0000"),
+                "summary" : "It's great!",
+                "text" : "This little mic is amazing. I use it with a minidisc recorder to make reference recordings of live acts (for rehearsals) and the quality is really top notch. I'm curious to use it with my portable Pro Tools rig and I expect the result will be the same. I would have paid twice as much as I did. Way to go, Sony!"
+            },
+            {
+                "userId" : "A1JBUBTQ48ITN4",
+                "profileName" : "Loren Woirhaye \"Direct Response copywriting ...",
+                "helpfulness" : "3/4",
+                "score" : NumberInt(4),
+                "time" : ISODate("2010-01-09T00:00:00.000+0000"),
+                "summary" : "Works good - but not for every situation",
+                "text" : "The mic puts out a low signal. This is correct for use withDigital camcorders, most of which do not have a mic preampin them so they require a pre-amped mic.I plug this into the side input on my laptop sometimes andit captures a nice quality sound but the volume is low.I sometimes play guitar into this mic too (with the laptop)and again, the sound is good, but too quiet.I have also tried plugging this camera into an externalsoundcard box (Firewire audio interface) and in this applicationit works nicely for capturing accordion. I haven't triedit for vocals. Probably the real issue is the audio-inputjack on the laptop and perhaps the soundcard in the laptopas well. External audio interfaces run on Firewire and USB2.0and start at about $30. The argument is that laptop soundcardsunderperform in recording use because the card shares resourceswith the CPU. If you use a desktop you can plug a new soundcardinto a PCI slot, or use an external box. The argument foran external soundcard box with inputs/outputs on it flowsalong the notion that the fans in a PC are noisy so it's betterto have the soundcard outside.I agree with some of the other reviewer who say it has abit of a \"digital\" sound to it. Not a warm-sounding micbut nice to have and not expensive. Seems very durableand of course it's quite compact."
+            },
+            {
+                "userId" : "AP53UNCTR9GH5",
+                "profileName" : "L. Hartwell",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(4),
+                "time" : ISODate("2009-09-11T00:00:00.000+0000"),
+                "summary" : "affordable, compact",
+                "text" : "Bought this after it was recommended to me on the Soundslides board. I use it with my Edirol R-09 HR to record audio for photo slideshows. The Sony mic is compact, I didn't need an adapter for it to fit the Edirol and comes with a few accessories. The sound quality is excellent, it fits in my camera bag, it has a long cord, and I am not going to cry too much if I drop it as it wasn't that pricey. My biggest complaints are that if you aren't conscious of what you are doing, you can get alot of mic handling noise - the build of the mic handle seems to really accentuate it. Also it has an on/off/90 degree and 360 degree switch and I often forget to turn it off and it drains the battery. Still, it's an excellent mic for the price and for someone starting out doing simple interviews and so on. To hear a sample of it, click on the slideshow here. [...] Recorded on an Edirol R-09 HR with the Sony mic on a large aircraft carrier, handheld by me."
+            },
+            {
+                "userId" : "A26C28HX56U35E",
+                "profileName" : "David J. Patterson \"davidp158\"",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(3),
+                "time" : ISODate("2011-12-30T00:00:00.000+0000"),
+                "summary" : "good mic, non-standard mic stand",
+                "text" : "I have owned this mic for 7 or 8 years, and have used it many times in various applications. Overall, the sound quality is good and the 90 and mid-side options are useful. Of course it doesn't match the sound quality of a professional condenser mic, but for the money it is a fairly good value.I recently compared The SONY mic to the built-in stereo mics on my Panasonic GH2 camera, and the SONY mic sounds better (better signal to noise ratio, flatter frequency response, improved low frequencies, and the ability to position/focus the mic's position allows for better isolation of room noise). The 90 and mid-side options give you two options for stereo recording. The mid-side captures a wider stereo field and can be more natural sounding, albeit less focused and more prone to room noise/reverberation.The battery consumption is minimal, and the power light will flash red when you turn it on to indicate battery life is good. Just be aware that the power light does not stay on when the mic is on. Thus, you could easily leave it on and drain the battery.My only gripe with this item it the mic \"stand\" that comes with it will not attach to a conventional microphone stand, and its narrow base makes it prone to tipping over. I am a musician, and the SONY's mic stand hole diameter is nearly 3/4\" with very coarse threads. Conventional mic stands use 5/8\" diameter with a much finer thread. So, if I want to attach the ECM-MS907 to a conventional mic stand, I need to find an adapter of some sort. I have used generic microphone clips in lieu of the ECM-MS907's mic stand, but I'd like to find an adapter. As SONY also makes pro-audio gear, why they used this non-standard hole and thread configuration is baffling.BTW, the GH2 uses a non-standard 3/32\" input jack, thus requiring an adapter for the SONY's 1/8\" plug. C'mon, people, please stick with standards!!!The permanently attached cable is very thin and doesn't inspire confidence, BUT it hasn't failed me, yet. When it does, I hope I can dismantle the mic and repair it.All in all, its a good mic. There are so many condenser mics that have come onto the market since this was introduced, I would strongly consider looking at other options. However, if you can find one of these used, for cheap ($20-$30 or so), I'd say it would be a good alternative to your camera's built-in mics, or as a cheap backup mic."
+            },
+            {
+                "userId" : "A30P9MIOCFD6ZI",
+                "profileName" : "Divaphoenix \"divaphoenix\"",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2011-12-17T00:00:00.000+0000"),
+                "summary" : "Excellent for live acoustic performances",
+                "text" : "I am a professional singer (Opera) and I have used this microphone with my mini disc player many times. The sound is crisp and clear, the fidelity and quality are superb.This microphone is ideal to record life acoustic performances, ex. recitals, operas, symphony concerts etc.This is not a studio quality microphone, which means you can not have it close to you when you are recording, you can record your acoustic guitar sound but you must place this microphone at least 7 feet away from you.It is excellent for live performances in concert halls etc. Just make sure is not that close to the instruments/voices because the sound won't come out well.I've never tried it with any HD video cameras, so I really don't know how well would it be for that.Hope this helps"
+            },
+            {
+                "userId" : "A14LSTHGJJ56JH",
+                "profileName" : "Deverix A. Horn \"DevMan\"",
+                "helpfulness" : "6/7",
+                "score" : NumberInt(4),
+                "time" : ISODate("2007-01-15T00:00:00.000+0000"),
+                "summary" : "Sony ECMMS907 is a decent mic",
+                "text" : "I bought the mic to use with a digital video camera that has an external mic jack. You know how video cams get lousy audio because the mic is over with the camera and not out with the subjects? When this mic is out in front the length at its cord (5 ft), it provides great audio. When I add a 10ft extension, the mic loses quite a bit of its signal so that the audio level I get is about 60% of what it was with the shorter length cord. Still much better than if I use the mic on the camera. So maybe you will not try to use a longer cord - the main issue with the mic is that it would be nice if it produced a higher level of audio output so that you get a stronger signal into your recording device, but the sound it gets is nice and clear and it works well for amateur applications."
+            },
+            {
+                "userId" : "A2BPFPVOWCTKDJ",
+                "profileName" : "Jo Ana Starr \"Mind-Body-Spirit\"",
+                "helpfulness" : "6/7",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-07-22T00:00:00.000+0000"),
+                "summary" : "High Quality, Affordable Digital Mic",
+                "text" : "I use this very affordable digital stereo microphone for recording trainings. I use it with a camcorder and a computer and it always does a perfect job. Battery life is good, and sound quality is excellent. This mic picks up little background noise. As most mics do, it offers a close-range mode and extended range mode.I love the fact that it is simple to use. There is no learning curve here. Out of the box and ready to go.In our high tech world, we replace digital equipment every couple of years because something better comes along. For our purposes, nothing better has come along, so this has been our only recording microphone."
+            },
+            {
+                "userId" : "A12I9IAXBBNNJJ",
+                "profileName" : "Nina and Family",
+                "helpfulness" : "4/4",
+                "score" : NumberInt(4),
+                "time" : ISODate("2008-02-23T00:00:00.000+0000"),
+                "summary" : "Good for general use",
+                "text" : "This is a good general use mic. It is not a pro level mic. Having made that distinction, I gave it four stars for being a solid representative of its' class. Works best if you use a mic stand rather than holding it or placing it directly on a surface."
+            },
+            {
+                "userId" : "A1P94GRR71R2CI",
+                "profileName" : "IDN",
+                "helpfulness" : "4/4",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-10-21T00:00:00.000+0000"),
+                "summary" : "best $69 ever spent!",
+                "text" : "This mike not only is a major improvement over the little electret mike that comes with Sony MD recorders, but I also use it in a cheap little Olympus WS 310 recorder, and get amazing clarity and warmth.It makes all the difference. I was about to buy a new bigger better recorder and tried this mike, was astounded at the clarity even on low end recording devices. The battery seems to last forever too.... if you remember to shut it off!"
+            },
+            {
+                "userId" : "A3KJ5D003N51OW",
+                "profileName" : "vsaber",
+                "helpfulness" : "7/8",
+                "score" : NumberInt(4),
+                "time" : ISODate("2005-09-01T00:00:00.000+0000"),
+                "summary" : "Nice, convenient...",
+                "text" : "So far I am very impressed with this mic. While it does not have mind blowing sound, it is definitely an excellent mic for amatuer and semi-pro applications. Especially when you consider the price tag. High value to price ratio. The main application I have been using it for is simple and easy recordings of live shows and band rehearsals. With this mic I can plug it directly in to my Korg PRX4. With just two battery powered pieces I can have a fairly good live, stereo recording. I would highly recommend it to others for this purpose.However, I would not try to use this mic for recording instruments for release on a CD, or in situations where sound quality/fidelity is the main priority."
+            },
+            {
+                "userId" : "A1WHS8THSHN7AA",
+                "profileName" : "LeRoy Wood",
+                "helpfulness" : "5/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-07-19T00:00:00.000+0000"),
+                "summary" : "Sony Stereo Mic",
+                "text" : "My son had one that he used with a Creative Labs Nomad Jukebox III. I borrowed it and used it to record my wife's quartet practices on an HP iRiver. They all love the recording quality. That's tough to do, get them all to agree on a mic.It's traveled around a lot and holds up very well. The sound quality on the recordings is far better than the stereo mic that came with the iRiver or any others we had tried.We've since used it on my sons video camera; again, stellar results from a very affordable mic."
+            },
+            {
+                "userId" : "A2140UP60XJPTO",
+                "profileName" : "Nicholas C. Moore \"Hellawaits77\"",
+                "helpfulness" : "5/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2008-11-10T00:00:00.000+0000"),
+                "summary" : "Great Mic For Concerts",
+                "text" : "I'm far from an expert on cammies and mics, but this is definately a great buy. I film concerts w/ a cammie that has an external mic output. This microphone has given me excellent results. Very, very clear sound. Have never gotten any hissing or cackling. Does a very good job at filtering out excess noise (i.e. people around you), and picks up the sounds of a concert well. You can also adjust how the mic picks up the audio. You can choose 90 degrees, which is basically straight ahead, or 180 degrees, which will pick up sounds from the side as well as straight ahead. A very good microphone, I highly recommend this item."
+            },
+            {
+                "userId" : "A3801N740O6ROG",
+                "profileName" : "K. Roach",
+                "helpfulness" : "9/10",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-02-07T00:00:00.000+0000"),
+                "summary" : "Sony ECMMS907 Digital Recording Microphone",
+                "text" : "It works great. I wanted to have a quick way to record musical ideas, a rehearsal or a live show with my Sony minidisc recorder and this mic does the trick! Sure, it's not going to be perfect or the \"best possible sound quality\", but that's not the intent of the product in the first place.I have had great results so far and highly recommend this product!"
+            },
+            {
+                "userId" : "A2MHF7NUVO9NGF",
+                "profileName" : "Casey \"Mini-Studio in a bag\"",
+                "helpfulness" : "9/10",
+                "score" : NumberInt(5),
+                "time" : ISODate("2006-05-12T00:00:00.000+0000"),
+                "summary" : "Just what I needed",
+                "text" : "I love this little microphone. It works considerably well with my MD recorder. The stereo lapel mic that came with the recorder worked great, but 1. It looks funny for video applications... and 2. If I wasn't using for a video application, it just felt wierd to use it as it was. So this mic is just perfect. And the carrying bag that comes with it is extra large so... I can fit my MD recorder, a few accessories, the spring-loaded mic holder for my stand, and the microphone itself inside like a glove. I call it my \"mini-studio in a bag\".And for reference the MD Recorder I am using is a HI-MD SONY MZ-M100."
+            },
+            {
+                "userId" : "A2XXBZPQT5EXHV",
+                "profileName" : "Darren O'Neill",
+                "helpfulness" : "1/1",
+                "score" : NumberInt(4),
+                "time" : ISODate("2012-10-26T00:00:00.000+0000"),
+                "summary" : "Pretty Impressive For Live Music Recordings",
+                "text" : "I've got quite a few microphones in my collection and they all have a purpose and a situation where they shine. For this microphone that situation is when you're sitting around with a few friends and trading songs and stories. I bought one because a friend of mine had one and had it paired up with a minidisc player. I mainly use it plugged into a laptop with an external soundcard or directly into a mixing board.It picks up sound from a small or mid sized room nicely for acoustic performances. The stereo separation is nice, not too much and not too little. The fidelity is amazing for the price. As another reviewer pointed out, this microphone was used to record Lori McKenna's albumThe Kitchen Tapeswhich is very impressive in my book.If you're looking for a microphone for podcasting where you need to cheaply and easily pick up multiple voices around a table this would probably work well also.If you're doing podcasting or vocal work where everyone would have a separate microphone then you'll probably want to look elsewhere."
+            },
+            {
+                "userId" : "A2UY6EXIE8HA9U",
+                "profileName" : "Christian Franke",
+                "helpfulness" : "6/8",
+                "score" : NumberInt(2),
+                "time" : ISODate("2007-03-17T00:00:00.000+0000"),
+                "summary" : "quality okay, but annoying white noise",
+                "text" : "the mic's quality is okay but i tried using it with my iriver mp3-player and my computer and i get that really annoying white noise in the background all the time (it's really loud). before you buy it check out some sample-recordings on the internet if you are interested in high quality."
+            },
+            {
+                "userId" : "A3073B3FYJQBT5",
+                "profileName" : "David E. Barrett",
+                "helpfulness" : "4/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-03-19T00:00:00.000+0000"),
+                "summary" : "Great Medium Sized Microphone",
+                "text" : "This is a great microphone. It has great sound when used with my Sony MZ-RH1-Hi-MD Field Recorder. It picked up conversations in a large conference room during a presentation. I just set it up on the front table pointing at the presenter and got good quality sound.I was amazed that it picked up relatively quiet conversations from very far away. All that was necessary was to turn up the volume when I play back. So I will be able to normalize this with audio software.Another interesting thing, there were times during break when two interesting conversations were going on at different sides of the microphone. I was able to isolate them both and present them as two different recordings, since the stereo seperation was so complete.I look forward to further use. I especially want to use it to record sound for my digital videos, since the microphone on the video camera itself is not so good."
+            },
+            {
+                "userId" : "A1RXCANV9QGJ9Y",
+                "profileName" : "R. M. Braaten",
+                "helpfulness" : "4/5",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-05-12T00:00:00.000+0000"),
+                "summary" : "Great clarity and depth of sound",
+                "text" : "I am VERY pleased with the performance of this microphone. The clarity and the depth of sound is terrific. Used in conjunction with theSony MZ-R37 Portable Minidisc Player/Recorder, it's perfect for on-the-fly practice and performance sessions; no worries about recording levels or finding the perfect placement of the microphone--a challenge I could never overcome with analog systems. As an amateur acoustic musician who doesn't play or record that often, it's nice not to have to worry about the perfect setup. The microphone, with its two different stereo angle options, offers great flexibility. Your only concern will be blocking OUT sound, like birds in the background or the neighbor's dog, or children jumping on the bed. Worth every penny!"
+            },
+            {
+                "userId" : "A6FIAB28IS79",
+                "profileName" : "Samuel Chell",
+                "helpfulness" : "4/5",
+                "score" : NumberInt(4),
+                "time" : ISODate("2009-06-07T00:00:00.000+0000"),
+                "summary" : "Useful mic priced lower than ever, but here are a few tips.",
+                "text" : "This proven mic has come down in price, while the one below it--the Sony DS70--has remained pretty much the same. For the extra 15 bucks, the Sony MS907 is easily worth the upgrade. The only advantage of the DS70 is not having to worry about having a fresh battery installed. The MS907 sounds fuller and richer, but frankly I did not judge it to be superior to the overall effect of the 4-point microphone that comes with the popular Zoom H-2. Whether or not you choose to use it in place of the onboard mic of a high-end personal audio recorder really comes down to a matter of personal taste. On the other hand, if you've picked up the new Zoom H-4n, this Sony stereo mic would be an excellent choice for complementing the onboard ones since the new Zoom allows for use of onboard and external mics simultaneously.As for recording to a software audio program on an iMac, that particular computer has an audio input that will accommodate the 3.5mm plug (but be aware that many computers do not have such an input--in that case, look at a USB mic such as those from Blue). Even with the right fit and a fresh battery, I found the MS907 to be somewhat underpowered for optimal results. It wasn't until I plugged it into an Onkyo preamp that I was satisfied. Again, I suspect that a mic with a USB connector would permit better gain levels with most computers.There are adequate mic amps on Amazon for $20-$40, capable of boosting your signal by 48 volts, or 60 dbs. A Mac user willing to spend a bit more should look at the MXL Signal Booster Amp for Mac Computers, which costs a bit more but saves you the bother of USB conversion. Finally, if you're trying to make professional announcements for radio use, etc., you'll soon discover that, unless you're incapable of puckering (which means you're not much of a kisser), the plosives (\"p\" sounds) will run away with everything you try to say. The only solutions I've found are to write scripts that are devoid of plosives (the \"voiced\" \"b\" phoneme is almost as much of an offender as the voiceless \"p\" phoneme) or to pick up a \"pop filter.\" The latter are little more than 6\" circles of cheese cloth costing $20-$30 each, but I'm about to give in and order one from Amazon.The last advice I'll offer is not to indulge in candy or a sweet soda while broadcasting. It'll thicken your saliva and make you sound like someone attempting to communicate with his dentist after being shot up with novocaine (or is it lidocaine, these days?)--in any case, it's sugar cane, and fuctose syrup, that will muck up your elocution, making your gums talk louder than your words."
+            },
+            {
+                "userId" : "ADQJ3DMG0KK6U",
+                "profileName" : "Col Robert A. Guy \"Colonel\"",
+                "helpfulness" : "2/2",
+                "score" : NumberInt(5),
+                "time" : ISODate("2010-06-04T00:00:00.000+0000"),
+                "summary" : "Super quality mic!",
+                "text" : "Well worth the money. It's stereo, which most mics like this aren't. Sound quality is good and it uses a AA battery. The battery is easy to take out and put in if you don't use the mic regularly. I like it and use it regularly to video interviews and comments from folks."
+            },
+            {
+                "userId" : "A33B51Y076KA5U",
+                "profileName" : "Jared",
+                "helpfulness" : "5/6",
+                "score" : NumberInt(2),
+                "time" : ISODate("2006-10-13T00:00:00.000+0000"),
+                "summary" : "Not appropriate for table top use.",
+                "text" : "The gain on this mic is horrible. I was hoping to use four of them as desktop mic's for a conference we have coming up. Unless your directly on top of this mic it picks up less than my $5 dollar Nady condenser mic."
+            },
+            {
+                "userId" : "A12CCGBWKNYESO",
+                "profileName" : "happy oboist",
+                "helpfulness" : "5/6",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-04-07T00:00:00.000+0000"),
+                "summary" : "yay",
+                "text" : "It's tough to find an mic that retains the sound of the oboe so well. It's a strange instrument acoustically, but this mic does an excellent job with my mini disc and is very reasonably priced."
+            },
+            {
+                "userId" : "A1VLT0ZRH7AGIU",
+                "profileName" : "Mario A. Grillo",
+                "helpfulness" : "5/6",
+                "score" : NumberInt(5),
+                "time" : ISODate("2007-08-05T00:00:00.000+0000"),
+                "summary" : "This Thing!",
+                "text" : "Man,it's a good mike!Value! Clear and powerful.Obviously great for minidisc recording but it sounds good on a piano going into a Fostex MR-8HD.Yep,it's a keeper."
+            },
+            {
+                "userId" : "A146524IUDV0WL",
+                "profileName" : "Fosbender",
+                "helpfulness" : "3/3",
+                "score" : NumberInt(5),
+                "time" : ISODate("2009-01-06T00:00:00.000+0000"),
+                "summary" : "Excellent microphone",
+                "text" : "I purchased this microphone to use with our canon video camera. We have used it to record several music recitals and band concerts and have been pleased with the audio quality."
+            }
+        ],
+        "reviewStats" : {
+            "avgReviewScore" : 4.191489361702128,
+            "reviewsCount" : NumberInt(47),
+            "reviewScoreDistrib" : {
+                "1" : NumberInt(2),
+                "2" : NumberInt(3),
+                "3" : NumberInt(3),
+                "4" : NumberInt(15),
+                "5" : NumberInt(24)
+            }
+        }
+    }
+}
+
+duration: 2ms
+
+U ovom upitu iteriram po prethodno grupiranim proizvodima (6. zad) te za svaki proizvod računam reviewStats.
+Koristeći naredbu db.products.update(...) ažuriram zapise u kolekciji.
